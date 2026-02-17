@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { hubspotService } from '../services/hubspotService';
 
 const ApplicationWizard: React.FC = () => {
   const [step, setStep] = useState(1);
-  const [isWaitlisted, setIsWaitlisted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Controlled State
   const [formData, setFormData] = useState({
@@ -15,445 +15,324 @@ const ApplicationWizard: React.FC = () => {
     studentFirstName: '',
     studentLastName: '',
     studentDob: '',
+    studentGender: '',
     studentSchool: '',
+    studentInterests: [] as string[],
+    studentDeficits: '',
     academicStanding: '',
     hasSuspension: '',
     hasLawInteraction: '',
+    pickupType: '' as 'pickup' | 'alone' | '',
+    pickupTime: '',
+    parentWorkUntil: '',
+    nutritionType: 'Standard',
+    allergies: '',
+    specialWishes: '',
     location: 'Phoenix HQ (Arcadia)',
     parentStatement: '',
-    agreedAttendance: false,
-    agreedNoPhone: false,
-    agreedParentStrategy: false,
+    agreedAttendance: true, // Default to true as per simplification request
+    agreedNoPhone: true,
+    agreedParentStrategy: true,
   });
 
   const updateField = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const nextStep = () => {
-    window.scrollTo(0, 0);
-    setStep(step + 1);
+  const toggleInterest = (interest: string) => {
+    setFormData(prev => {
+      const interests = prev.studentInterests.includes(interest)
+        ? prev.studentInterests.filter(i => i !== interest)
+        : [...prev.studentInterests, interest];
+      return { ...prev, studentInterests: interests };
+    });
   };
 
-  const prevStep = () => setStep(step - 1);
+  // Auto-next utility for single-selection steps
+  const autoNext = () => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setStep(prev => prev + 1);
+    }, 400);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const HUB_FORM_ID = '51085955'; // Using the portal ID provided earlier as a fallback or if this is the form ID
 
-    // 1. CRM Submission (HubSpot)
-    // Placeholder Form ID - USER needs to create a form in HubSpot and put ID here
-    const HUB_FORM_ID = 'YOUR_FORM_ID_HERE';
-
-    await hubspotService.submitLead({
-      email: formData.parentEmail,
-      firstName: formData.parentFirstName,
-      lastName: formData.parentLastName,
-      phone: formData.parentPhone,
-      studentName: `${formData.studentFirstName} ${formData.studentLastName}`,
-      studentDob: formData.studentDob,
-      studentSchool: formData.studentSchool,
-      gpaStatus: formData.academicStanding,
-      hasSuspension: formData.hasSuspension,
-      lawInteraction: formData.hasLawInteraction,
-      preferredLocation: formData.location,
-      parentStatement: formData.parentStatement
-    }, HUB_FORM_ID);
-
-    // 2. Legacy Webhook (n8n)
     try {
+      await hubspotService.submitLead({
+        email: formData.parentEmail,
+        firstName: formData.parentFirstName,
+        lastName: formData.parentLastName,
+        phone: formData.parentPhone,
+        studentName: `${formData.studentFirstName} ${formData.studentLastName}`,
+        studentDob: formData.studentDob,
+        studentGender: formData.studentGender,
+        studentSchool: formData.studentSchool,
+        studentInterests: formData.studentInterests,
+        studentDeficits: formData.studentDeficits,
+        gpaStatus: formData.academicStanding,
+        hasSuspension: formData.hasSuspension,
+        lawInteraction: formData.hasLawInteraction,
+        pickupType: formData.pickupType as 'pickup' | 'alone',
+        pickupTime: formData.pickupTime,
+        parentWorkUntil: formData.parentWorkUntil,
+        nutritionType: formData.nutritionType,
+        allergies: formData.allergies,
+        specialWishes: formData.specialWishes,
+        preferredLocation: formData.location,
+        parentStatement: formData.parentStatement
+      }, HUB_FORM_ID);
+
+      // Webhook fallback
       await fetch('https://n8n.secondbelllab.com/webhook/application', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          submittedAt: new Date().toISOString(),
-        }),
+        body: JSON.stringify({ ...formData, submittedAt: new Date().toISOString() }),
       });
 
-      // Track conversion in Google Ads / Analytics
-      if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'conversion', {
-          'send_to': 'AW-CONVERSION_ID/LABEL',
-          'value': 50.0,
-          'currency': 'USD'
-        });
-      }
+      setIsSubmitted(true);
+      setStep(6);
     } catch (err) {
       console.error('Submission Error:', err);
     }
-
-    setIsWaitlisted(true);
-    nextStep();
   };
 
   const Progress = () => (
-    <div className="w-full bg-slate-200 h-1 mb-8 rounded-full overflow-hidden">
-      <div
-        className="bg-brand-gold h-full transition-all duration-500 ease-out"
-        style={{ width: `${(step / 8) * 100}%` }}
-      ></div>
+    <div className="mb-12">
+      <div className="flex justify-between items-center mb-4">
+        <span className="text-[10px] font-black uppercase tracking-widest text-brand-gold bg-brand-gold/10 px-3 py-1 rounded-full">Phase {step} of 5</span>
+        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{Math.round(((step - 1) / 5) * 100)}% Complete</span>
+      </div>
+      <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+        <div
+          className="bg-brand-navy h-full transition-all duration-700 ease-in-out"
+          style={{ width: `${((step - 1) / 5) * 100}%` }}
+        ></div>
+      </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 py-20 px-4 pt-32">
+    <div className="min-h-screen bg-white py-20 px-4 pt-32 selection:bg-brand-gold selection:text-brand-navy">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-heading font-bold text-brand-navy mb-2">Membership Application</h1>
-          <p className="text-slate-500">Fall 2025 Cohort • Priority Access</p>
+        {/* Minimal Header */}
+        <div className="text-center mb-10 animate-fade-in">
+          <Link to="/" className="inline-block mb-8">
+            <img src="/logo.svg" alt="Second Bell Lab" className="h-10 mx-auto" />
+          </Link>
+          <h1 className="text-4xl font-heading font-black text-brand-navy mb-2 tracking-tighter uppercase">Application Portal</h1>
+          <p className="text-slate-500 font-bold text-[10px] uppercase tracking-[0.2em]">High-Performance Student Cohort • Fall 2025</p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-slate-100">
-          {step < 9 && <Progress />}
+        <div className="bg-slate-50 rounded-[2.5rem] p-8 md:p-14 border border-slate-100 relative overflow-hidden transition-all duration-500">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+
+          {step < 6 && <Progress />}
 
           <form onSubmit={handleSubmit}>
-            {/* Step 1: Parent Info */}
+            {/* Step 1: The Identity (Parent & Student) */}
             {step === 1 && (
-              <div className="animate-fade-in space-y-6">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 1 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Parent/Guardian</h2>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="parentFirstName" className="block text-xs font-bold text-slate-500 uppercase mb-2">First Name</label>
-                    <input
-                      id="parentFirstName"
-                      type="text"
-                      value={formData.parentFirstName}
-                      onChange={(e) => updateField('parentFirstName', e.target.value)}
-                      className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                      required
-                    />
+              <div className="animate-fade-in space-y-12">
+                <section className="space-y-6">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Parent / Guardian</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="First Name" value={formData.parentFirstName} onChange={(e) => updateField('parentFirstName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
+                    <input type="text" placeholder="Last Name" value={formData.parentLastName} onChange={(e) => updateField('parentLastName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                   </div>
-                  <div>
-                    <label htmlFor="parentLastName" className="block text-xs font-bold text-slate-500 uppercase mb-2">Last Name</label>
-                    <input
-                      id="parentLastName"
-                      type="text"
-                      value={formData.parentLastName}
-                      onChange={(e) => updateField('parentLastName', e.target.value)}
-                      className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                      required
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="email" placeholder="Email" value={formData.parentEmail} onChange={(e) => updateField('parentEmail', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
+                    <input type="tel" placeholder="Phone" value={formData.parentPhone} onChange={(e) => updateField('parentPhone', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                   </div>
-                </div>
-                <div>
-                  <label htmlFor="parentEmail" className="block text-xs font-bold text-slate-500 uppercase mb-2">Email Address</label>
-                  <input
-                    id="parentEmail"
-                    type="email"
-                    value={formData.parentEmail}
-                    onChange={(e) => updateField('parentEmail', e.target.value)}
-                    className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="parentPhone" className="block text-xs font-bold text-slate-500 uppercase mb-2">Phone Number</label>
-                  <input
-                    id="parentPhone"
-                    type="tel"
-                    value={formData.parentPhone}
-                    onChange={(e) => updateField('parentPhone', e.target.value)}
-                    className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                    required
-                  />
-                </div>
-                <div className="mt-8 flex justify-end">
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Next Step</button>
-                </div>
-              </div>
-            )}
+                </section>
 
-            {/* Step 2: Student Info */}
-            {step === 2 && (
-              <div className="animate-fade-in space-y-6">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 2 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">The Student</h2>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="studentFirstName" className="block text-xs font-bold text-slate-500 uppercase mb-2">Student First Name</label>
-                    <input
-                      id="studentFirstName"
-                      type="text"
-                      value={formData.studentFirstName}
-                      onChange={(e) => updateField('studentFirstName', e.target.value)}
-                      className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                      required
-                    />
+                <section className="space-y-6">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Student Details</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Student First Name" value={formData.studentFirstName} onChange={(e) => updateField('studentFirstName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
+                    <input type="text" placeholder="Student Last Name" value={formData.studentLastName} onChange={(e) => updateField('studentLastName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                   </div>
-                  <div>
-                    <label htmlFor="studentLastName" className="block text-xs font-bold text-slate-500 uppercase mb-2">Student Last Name</label>
-                    <input
-                      id="studentLastName"
-                      type="text"
-                      value={formData.studentLastName}
-                      onChange={(e) => updateField('studentLastName', e.target.value)}
-                      className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                      required
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="studentDob" className="block text-xs font-bold text-slate-500 uppercase mb-2">Date of Birth</label>
-                  <input
-                    id="studentDob"
-                    type="date"
-                    value={formData.studentDob}
-                    onChange={(e) => updateField('studentDob', e.target.value)}
-                    className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="studentSchool" className="block text-xs font-bold text-slate-500 uppercase mb-2">Current School</label>
-                  <input
-                    id="studentSchool"
-                    type="text"
-                    value={formData.studentSchool}
-                    onChange={(e) => updateField('studentSchool', e.target.value)}
-                    className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all"
-                    required
-                  />
-                </div>
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Next Step</button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Academic Standing */}
-            {step === 3 && (
-              <div className="animate-fade-in space-y-6">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 3 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Academic Standing</h2>
-                </div>
-                <p className="text-slate-600 mb-6 text-sm">We don't require straight A's, but we require a commitment to improvement. Where do they stand currently?</p>
-                <div className="space-y-4">
-                  {[
-                    { val: 'High Performer', label: "High Performer (Mostly A's)" },
-                    { val: 'Average', label: "Average (B's and C's)" },
-                    { val: 'Struggling', label: "Struggling (D's or below)" }
-                  ].map((option) => (
-                    <div
-                      key={option.val}
-                      onClick={() => updateField('academicStanding', option.val)}
-                      className={`p-5 border-2 rounded-2xl cursor-pointer transition-all ${formData.academicStanding === option.val ? 'border-brand-gold bg-brand-gold/5' : 'border-slate-100 hover:border-slate-200'}`}
-                    >
-                      <label className="flex items-center gap-4 cursor-pointer">
-                        <input type="radio" checked={formData.academicStanding === option.val} readOnly className="w-5 h-5 accent-brand-gold" />
-                        <span className="font-bold text-brand-navy">{option.label}</span>
-                      </label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="studentDob" className="text-[10px] font-black uppercase text-slate-400 ml-2">Birth Date</label>
+                      <input id="studentDob" type="date" value={formData.studentDob} onChange={(e) => updateField('studentDob', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" required />
                     </div>
-                  ))}
-                </div>
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Next Step</button>
+                    <div className="space-y-2">
+                      <label htmlFor="studentGender" className="text-[10px] font-black uppercase text-slate-400 ml-2">Gender</label>
+                      <select id="studentGender" value={formData.studentGender} onChange={(e) => updateField('studentGender', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" required title="Student Gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                </section>
+
+                <div className="flex justify-end pt-8">
+                  <button type="button" onClick={() => setStep(2)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
+                    Next Phase <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                  </button>
                 </div>
               </div>
             )}
 
-            {/* Step 4: Behavioral History */}
+            {/* Step 2: Performance & School (Click-Friendly) */}
+            {step === 2 && (
+              <div className="animate-fade-in space-y-12">
+                <div className="space-y-4">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Current School</div>
+                  <input type="text" placeholder="Name of school..." value={formData.studentSchool} onChange={(e) => updateField('studentSchool', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Academic Status</label>
+                  <div className="grid grid-cols-1 gap-3">
+                    {[
+                      { val: 'High Performer', label: "Top Tier (Mostly A's)" },
+                      { val: 'Average', label: "Stable (B/C Range)" },
+                      { val: 'Struggling', label: "At Risk (D/F Range)" }
+                    ].map(opt => (
+                      <button key={opt.val} type="button" onClick={() => { updateField('academicStanding', opt.val); autoNext(); }} className={`p-6 text-left border-2 rounded-2xl transition-all flex items-center justify-between ${formData.academicStanding === opt.val ? 'border-brand-navy bg-brand-navy text-white shadow-xl' : 'border-white bg-white hover:border-slate-200'}`}>
+                        <span className="font-black uppercase tracking-tight text-sm">{opt.label}</span>
+                        {formData.academicStanding === opt.val && <i className="fa-solid fa-circle-check"></i>}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex justify-between pt-8">
+                  <button type="button" onClick={() => setStep(1)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Child Profile (Grouped) */}
+            {step === 3 && (
+              <div className="animate-fade-in space-y-12">
+                <div className="space-y-6">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Passions & Interests</div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {['Sports', 'Tech', 'Arts', 'Coding', 'Leader', 'Science', 'Music', 'Media'].map((interest) => (
+                      <div key={interest} onClick={() => toggleInterest(interest)} className={`p-4 border-2 rounded-2xl cursor-pointer transition-all text-center group ${formData.studentInterests.includes(interest) ? 'border-brand-gold bg-brand-gold/10' : 'border-white bg-white hover:border-slate-200'}`}>
+                        <span className={`text-[10px] font-black uppercase tracking-widest ${formData.studentInterests.includes(interest) ? 'text-brand-navy' : 'text-slate-400 group-hover:text-brand-navy'}`}>{interest}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Behavioral Gaps / Struggles</div>
+                  <textarea placeholder="Tell us where your child needs support (focus, social, etc)..." value={formData.studentDeficits} onChange={(e) => updateField('studentDeficits', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-3xl h-32 focus:ring-2 focus:ring-brand-gold outline-none transition-all placeholder:text-slate-300 font-medium"></textarea>
+                </div>
+
+                <div className="flex justify-between pt-8">
+                  <button type="button" onClick={() => setStep(2)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
+                  <button type="button" onClick={() => setStep(4)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
+                    Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: Logistics & Nutrition */}
             {step === 4 && (
-              <div className="animate-fade-in space-y-8">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 4 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Behavioral History</h2>
+              <div className="animate-fade-in space-y-12">
+                <div className="space-y-6">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Daily Routine</div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button type="button" onClick={() => updateField('pickupType', 'pickup')} className={`p-6 border-2 rounded-2xl transition-all text-left ${formData.pickupType === 'pickup' ? 'border-brand-navy bg-brand-navy text-white shadow-lg' : 'border-white bg-white hover:border-slate-200'}`}>
+                      <h4 className="font-black uppercase tracking-tight text-xs">Pickup</h4>
+                      <p className="text-[10px] opacity-60">I will collect my child</p>
+                    </button>
+                    <button type="button" onClick={() => updateField('pickupType', 'alone')} className={`p-6 border-2 rounded-2xl transition-all text-left ${formData.pickupType === 'alone' ? 'border-brand-navy bg-brand-navy text-white shadow-lg' : 'border-white bg-white hover:border-slate-200'}`}>
+                      <h4 className="font-black uppercase tracking-tight text-xs">Self-Transition</h4>
+                      <p className="text-[10px] opacity-60">Goes home alone</p>
+                    </button>
+                  </div>
+                  {formData.pickupType && (
+                    <div className="animate-fade-in">
+                      <label htmlFor="pickupTime" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">{formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'}</label>
+                      <input id="pickupTime" type="time" value={formData.pickupType === 'pickup' ? formData.pickupTime : formData.parentWorkUntil} onChange={(e) => updateField(formData.pickupType === 'pickup' ? 'pickupTime' : 'parentWorkUntil', e.target.value)} className="w-full mt-2 p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" required title={formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'} />
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-bold text-brand-navy mb-4">Has the student ever been suspended or expelled?</label>
-                    <div className="flex gap-4">
-                      {['Yes', 'No'].map(val => (
-                        <button
-                          key={val}
-                          type="button"
-                          onClick={() => updateField('hasSuspension', val)}
-                          className={`px-8 py-3 rounded-xl font-bold transition-all border-2 ${formData.hasSuspension === val ? 'bg-brand-navy text-white border-brand-navy' : 'bg-white text-slate-400 border-slate-100 hover:border-slate-200'}`}
-                        >
-                          {val}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="space-y-2">
+                    <label htmlFor="nutritionType" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Nutrition</label>
+                    <select id="nutritionType" value={formData.nutritionType} onChange={(e) => updateField('nutritionType', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" title="Nutrition Type">
+                      <option value="Standard">Standard</option>
+                      <option value="Vegan">Vegan</option>
+                      <option value="Kosher">Kosher</option>
+                      <option value="Halal">Halal</option>
+                      <option value="Gluten-Free">Gluten-Free</option>
+                    </select>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-brand-navy mb-2">Has the student had any interaction with law enforcement?</label>
-                    <p className="text-xs text-slate-500 mb-4">If yes, we may recommend our Reintegration track.</p>
-                    <div className="flex gap-4">
-                      {['Yes', 'No'].map(val => (
-                        <button
-                          key={val}
-                          type="button"
-                          onClick={() => updateField('hasLawInteraction', val)}
-                          className={`px-8 py-3 rounded-xl font-bold transition-all border-2 ${formData.hasLawInteraction === val ? 'bg-brand-navy text-white border-brand-navy' : 'bg-white text-slate-400 border-slate-100 hover:border-slate-200'}`}
-                        >
-                          {val}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  <input type="text" placeholder="Any allergies?" value={formData.allergies} onChange={(e) => updateField('allergies', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" />
                 </div>
 
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Next Step</button>
+                <div className="flex justify-between pt-8">
+                  <button type="button" onClick={() => setStep(3)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
+                  <button type="button" onClick={() => { if (formData.pickupType) setStep(5); }} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group" disabled={!formData.pickupType}>
+                    Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                  </button>
                 </div>
               </div>
             )}
 
-            {/* Step 5: Family Commitment */}
+            {/* Step 5: The Commitment & Final Review */}
             {step === 5 && (
-              <div className="animate-fade-in space-y-6">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 5 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Commitment</h2>
+              <div className="animate-fade-in space-y-12">
+                <div className="space-y-6">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Why Second Bell Lab?</div>
+                  <textarea placeholder="Tell us about your goals for your child..." value={formData.parentStatement} onChange={(e) => updateField('parentStatement', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-3xl h-40 focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required></textarea>
                 </div>
-                <div className="bg-brand-gold/5 p-6 rounded-2xl border-l-4 border-brand-gold mb-8">
-                  <p className="text-sm text-brand-navy font-medium italic">"We cannot build what you tear down at home."</p>
+
+                <div className="bg-white p-8 rounded-3xl border border-slate-200 space-y-4">
+                  <h4 className="text-[10px] font-black text-brand-navy uppercase tracking-widest mb-4">The Partnership Terms</h4>
+                  <p className="text-xs text-slate-500 leading-relaxed font-bold">1. Mandatory daily attendance (Mon-Fri).<br />2. 100% "No Device" policy during Lab hours.<br />3. Commitment to quarterly strategy sessions.</p>
+                  <div className="pt-4 flex items-center gap-3 text-brand-navy">
+                    <div className="w-5 h-5 bg-black text-white flex items-center justify-center rounded-sm text-[10px]"><i className="fa-solid fa-check"></i></div>
+                    <span className="text-[10px] font-black uppercase tracking-widest">I commit to these standards.</span>
+                  </div>
                 </div>
-                <div className="space-y-4">
-                  {[
-                    { id: 'agreedAttendance', label: 'I understand that attendance is mandatory (Mon-Fri) barring illness.' },
-                    { id: 'agreedNoPhone', label: 'I agree to support the "No Phone" policy during lab hours.' },
-                    { id: 'agreedParentStrategy', label: 'I am willing to attend a quarterly parent-director strategy session.' }
-                  ].map((item) => (
-                    <label key={item.id} className="flex items-start gap-4 p-5 hover:bg-slate-50 rounded-2xl cursor-pointer transition-all border border-transparent hover:border-slate-100">
-                      <input
-                        type="checkbox"
-                        checked={(formData as any)[item.id]}
-                        onChange={(e) => updateField(item.id, e.target.checked)}
-                        className="mt-1 w-6 h-6 rounded-lg accent-brand-navy cursor-pointer"
-                        required
-                      />
-                      <span className="text-sm text-slate-600 font-medium leading-relaxed">{item.label}</span>
-                    </label>
-                  ))}
-                </div>
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Next Step</button>
+
+                <div className="flex justify-between pt-8">
+                  <button type="button" onClick={() => setStep(4)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
+                  <button type="submit" className="px-12 py-6 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-navy hover:text-white transition-all shadow-2xl active:scale-95">
+                    Submit Application
+                  </button>
                 </div>
               </div>
             )}
 
-            {/* Step 6: Location */}
+            {/* Success */}
             {step === 6 && (
-              <div className="animate-fade-in space-y-6">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 6 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Location</h2>
+              <div className="animate-fade-in text-center py-10 space-y-8">
+                <div className="w-24 h-24 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                  <i className="fa-solid fa-check text-4xl text-brand-navy"></i>
                 </div>
-                <div className="grid grid-cols-1 gap-4">
-                  <div
-                    onClick={() => updateField('location', 'Phoenix HQ (Arcadia)')}
-                    className={`p-6 border-2 rounded-2xl cursor-pointer transition-all ${formData.location === 'Phoenix HQ (Arcadia)' ? 'border-brand-navy bg-brand-navy/5' : 'border-slate-100 hover:border-slate-200'}`}
-                  >
-                    <label className="flex items-center justify-between cursor-pointer">
-                      <span className="font-bold text-brand-navy text-lg">Phoenix HQ (Arcadia)</span>
-                      <input type="radio" checked={formData.location === 'Phoenix HQ (Arcadia)'} readOnly className="w-6 h-6 accent-brand-navy" />
-                    </label>
-                    <p className="text-xs text-slate-500 mt-2">Open Now • Limited Founding Member Spots</p>
-                  </div>
-                  <div className="p-6 border border-slate-100 rounded-2xl opacity-40 cursor-not-allowed bg-slate-50">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-400 text-lg">Scottsdale North</span>
-                      <span className="text-[10px] font-black bg-slate-200 px-3 py-1 rounded-full uppercase tracking-widest">Waitlist Only</span>
-                    </div>
-                    <p className="text-xs text-slate-400 mt-2">Opening Fall 2025</p>
-                  </div>
+                <h2 className="text-4xl font-black text-brand-navy uppercase tracking-tighter">Application Received</h2>
+                <p className="text-slate-500 font-bold leading-relaxed max-w-md mx-auto">Thank you, {formData.parentFirstName}. Our mentors will review your application for {formData.studentFirstName} and reach out within 48 hours.</p>
+                <div className="pt-8">
+                  <Link to="/" className="inline-flex items-center gap-3 text-brand-navy font-black uppercase tracking-[0.2em] text-[10px] border-b-2 border-brand-gold pb-2 hover:text-brand-gold transition-all">
+                    Return Home <i className="fa-solid fa-arrow-right"></i>
+                  </Link>
                 </div>
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Next Step</button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 7: Motivation */}
-            {step === 7 && (
-              <div className="animate-fade-in space-y-6">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 7 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Statement</h2>
-                </div>
-                <div className="space-y-4">
-                  <label htmlFor="parentStatement" className="block text-sm font-bold text-brand-navy mb-2">Why do you want your child at Second Bell Lab?</label>
-                  <textarea
-                    id="parentStatement"
-                    value={formData.parentStatement}
-                    onChange={(e) => updateField('parentStatement', e.target.value)}
-                    className="w-full p-5 border border-slate-200 rounded-2xl h-48 focus:ring-2 focus:ring-brand-gold outline-none resize-none transition-all placeholder:text-slate-300"
-                    placeholder="We are looking for families who want growth, not just childcare..."
-                    required
-                  ></textarea>
-                </div>
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={nextStep} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Review</button>
-                </div>
-              </div>
-            )}
-
-            {/* Step 8: Review & Submit */}
-            {step === 8 && (
-              <div className="animate-fade-in space-y-8">
-                <div>
-                  <span className="text-brand-gold font-bold text-xs uppercase tracking-widest block mb-2">Step 8 of 8</span>
-                  <h2 className="text-3xl font-black text-brand-navy mb-6">Final Review</h2>
-                </div>
-                <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1">Parent</span>
-                      <p className="text-brand-navy font-bold">{formData.parentFirstName} {formData.parentLastName}</p>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1">Student</span>
-                      <p className="text-brand-navy font-bold">{formData.studentFirstName} {formData.studentLastName}</p>
-                    </div>
-                  </div>
-                  <div className="pt-4 border-t border-slate-200">
-                    <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-1">Email</span>
-                    <p className="text-brand-navy font-bold">{formData.parentEmail}</p>
-                  </div>
-                </div>
-                <p className="text-[10px] text-slate-400 text-center uppercase tracking-widest leading-relaxed">By clicking Submit, you agree to the non-refundable application fee of $50 <br /> (waived for founding waitlist applications).</p>
-                <div className="mt-8 flex justify-between">
-                  <button type="button" onClick={prevStep} className="text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-brand-navy transition-colors">Back</button>
-                  <button type="submit" className="px-12 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-widest rounded-xl hover:bg-brand-navy hover:text-white transition-all shadow-2xl active:scale-95">Submit Application</button>
-                </div>
-              </div>
-            )}
-
-            {/* Success / Waitlist */}
-            {step === 9 && (
-              <div className="animate-fade-in text-center py-10 space-y-6">
-                <div className="w-24 h-24 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-8 border-4 border-brand-gold animate-bounce">
-                  <i className="fa-solid fa-check text-4xl text-brand-gold"></i>
-                </div>
-                <h2 className="text-4xl font-black text-brand-navy mb-4 tracking-tighter">APPLICATION RECEIVED</h2>
-                <p className="text-slate-600 mb-8 max-w-lg mx-auto font-medium leading-relaxed">
-                  Thank you. Due to high demand for the Arcadia HQ, we have placed your application on our <strong>Priority Founding Waitlist</strong>.
-                </p>
-                <div className="bg-brand-navy text-white p-8 rounded-[2.5rem] max-w-lg mx-auto mb-10 shadow-2xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full blur-3xl"></div>
-                  <p className="text-sm leading-relaxed relative z-10 font-medium">
-                    <span className="text-brand-gold font-bold block mb-2 uppercase tracking-widest text-xs">What happens next?</span>
-                    Our waitlist helps us expedite the rollout. The more interest we have in a specific zip code, the faster we build. You will be notified via email when a spot opens.
-                  </p>
-                </div>
-                <Link to="/" className="inline-flex items-center gap-2 text-brand-navy font-black uppercase tracking-widest text-xs border-b-2 border-brand-gold pb-1 hover:text-brand-gold transition-colors">Return to Dashboard <i className="fa-solid fa-arrow-right text-[10px]"></i></Link>
               </div>
             )}
           </form>
+        </div>
+
+        {/* Trust Footnote */}
+        <div className="mt-12 text-center text-[10px] space-y-4 animate-fade-in">
+          <div className="flex items-center justify-center gap-8 opacity-40 grayscale group-hover:grayscale-0 transition-all">
+            <span className="font-black uppercase tracking-widest">Encrypted Data</span>
+            <span className="font-black uppercase tracking-widest">Privacy Protected</span>
+            <span className="font-black uppercase tracking-widest">Member Support</span>
+          </div>
+          <p className="text-slate-400 font-bold uppercase tracking-widest">© 2025 Second Bell Lab • High Performance Excellence</p>
         </div>
       </div>
     </div>

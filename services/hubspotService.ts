@@ -12,10 +12,19 @@ export interface LeadData {
     phone?: string;
     studentName: string;
     studentDob: string;
+    studentGender: string;
     studentSchool: string;
+    studentInterests: string[];
+    studentDeficits: string;
     gpaStatus: string;
     hasSuspension: string;
     lawInteraction: string;
+    pickupType: 'pickup' | 'alone';
+    pickupTime?: string;
+    parentWorkUntil?: string;
+    nutritionType: string;
+    allergies: string;
+    specialWishes: string;
     preferredLocation: string;
     parentStatement: string;
 }
@@ -46,10 +55,19 @@ export const hubspotService = {
                 { name: 'phone', value: data.phone || '' },
                 { name: 'student_name', value: data.studentName },
                 { name: 'student_dob', value: data.studentDob },
+                { name: 'student_gender', value: data.studentGender },
                 { name: 'student_school', value: data.studentSchool },
+                { name: 'student_interests', value: data.studentInterests.join(', ') },
+                { name: 'student_deficits', value: data.studentDeficits },
                 { name: 'gpa_status', value: data.gpaStatus },
                 { name: 'has_suspension', value: data.hasSuspension },
                 { name: 'law_interaction', value: data.lawInteraction },
+                { name: 'pickup_type', value: data.pickupType },
+                { name: 'pickup_time', value: data.pickupTime || '' },
+                { name: 'parent_work_until', value: data.parentWorkUntil || '' },
+                { name: 'nutrition_type', value: data.nutritionType },
+                { name: 'allergies', value: data.allergies },
+                { name: 'special_wishes', value: data.specialWishes },
                 { name: 'preferred_location', value: data.preferredLocation },
                 { name: 'parent_statement', value: data.parentStatement },
             ],
