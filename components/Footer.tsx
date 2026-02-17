@@ -24,7 +24,6 @@ const Footer: React.FC<{ setPage: (p: Page) => void }> = ({ setPage }) => {
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all" aria-label="LinkedIn"><i className="fa-brands fa-linkedin-in"></i></a>
               <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all" aria-label="YouTube"><i className="fa-brands fa-youtube"></i></a>
             </div>
           </div>
 
@@ -33,7 +32,6 @@ const Footer: React.FC<{ setPage: (p: Page) => void }> = ({ setPage }) => {
             <ul className="space-y-3">
               <li><button onClick={() => setPage(Page.PARENTS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Builders (11-14)</button></li>
               <li><button onClick={() => setPage(Page.PARENTS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Creators (15-17)</button></li>
-              <li><button onClick={() => setPage(Page.SECOND_CHANCE)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Reintegration</button></li>
             </ul>
           </div>
 

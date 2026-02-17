@@ -20,7 +20,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
     { id: Page.PROGRAMS, label: 'Programs' },
     { id: Page.LOCATIONS, label: 'Locations' },
     { id: Page.BLOG, label: 'Blog' },
-    { id: Page.SECOND_CHANCE, label: 'Gov / Reintegration' },
     { id: Page.ABOUT, label: 'About' },
   ];
 
@@ -67,16 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all" aria-label="LinkedIn"><i className="fa-brands fa-linkedin-in"></i></a>
               <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all" aria-label="YouTube"><i className="fa-brands fa-youtube"></i></a>
             </div>
-            <button
-              onClick={() => setPage(Page.ASSISTANT)}
-              className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300"
-              title="AI Assistant"
-              aria-label="AI Assistant"
-            >
-              <i className="fa-solid fa-robot"></i>
-            </button>
             <button
               onClick={() => setPage(Page.APPLICATION)}
               className="px-6 py-3 bg-brand-navy text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-lg hover:bg-brand-gold hover:text-brand-navy transition-all duration-300 shadow-lg shadow-brand-navy/20 transform hover:-translate-y-0.5"

@@ -216,14 +216,6 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-8 items-center">
             <button
-              onClick={() => setPage(Page.ASSISTANT)}
-              className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.1em] rounded-full hover:bg-white transition-all duration-500 transform hover:-translate-y-2 shadow-[0_20px_50px_rgba(251,191,36,0.3)] w-full sm:w-auto active:scale-95"
-              aria-label="Chat with AI Admissions"
-            >
-              <i className="fa-solid fa-robot text-xl"></i>
-              AI Admissions Chat
-            </button>
-            <button
               onClick={() => setPage(Page.APPLICATION)}
               className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-transparent border-2 border-white/20 text-white font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-white hover:text-brand-navy hover:border-white transition-all duration-500 w-full sm:w-auto active:translate-y-0.5"
               aria-label="Apply for Membership"

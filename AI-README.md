@@ -16,6 +16,9 @@ This document serves as a guide for AI agents working on this codebase to ensure
 
 ## SEO Best Practices
 - Keep meta tags updated in `index.html`.
+- **Asset Optimization**: Ensure static assets (images, fonts) are placed in the `public/` directory so they are correctly served in production.
+- **Image Referencing**: Reference public assets using absolute paths like `/images/logo.png`.
+- **Favicon**: The favicon should be in `public/images/Icon.png`.
 - Ensure all interactive elements have `aria-label` or `title` for better crawling and accessibility.
 
 ## Ongoing Tasks
