@@ -13,12 +13,12 @@ const Parents: React.FC<ParentsProps> = () => {
       <div className="relative bg-brand-navy text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center text-center">
-          <span className="text-brand-gold font-black tracking-widest uppercase mb-4 animate-fade-in text-sm">Excellence in After-School</span>
-          <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 animate-fade-up leading-none">
-            More Than Just <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">Childcare.</span>
+          <span className="text-brand-gold font-black tracking-[0.3em] uppercase mb-6 animate-fade-in text-xs block bg-white/5 backdrop-blur-md px-6 py-2 rounded-full border border-white/10">Excellence in After-School</span>
+          <h1 className="text-6xl md:text-9xl font-black uppercase mb-8 animate-fade-up leading-[0.85] tracking-tighter">
+            More Than <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-orange-500">Childcare.</span>
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl animate-fade-up delay-200 leading-relaxed font-medium">
-            Second Bell Lab™ is a membership-based premium development center. We turn the "dead time" between school and dinner into your child's most productive hours.
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl animate-fade-up delay-200 leading-relaxed font-medium">
+            Second Bell Lab™ is a membership-based premium development center. We turn the <span className="text-white font-bold">"dead time"</span> between school and dinner into your child's most productive hours.
           </p>
         </div>
       </div>
@@ -26,29 +26,30 @@ const Parents: React.FC<ParentsProps> = () => {
       {/* The 5 Pillars - Grid Design */}
       <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-brand-gold font-black uppercase tracking-widest text-sm">Our Methodology</span>
-          <h2 className="text-4xl font-black uppercase text-brand-navy mt-2">The 5 Core Pillars</h2>
-          <p className="text-slate-500 mt-4 font-bold">Click on any pillar to explore the curriculum.</p>
+          <span className="text-brand-gold font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Our Methodology</span>
+          <h2 className="text-5xl font-black uppercase text-brand-navy mt-2 tracking-tight">The 5 Core Pillars</h2>
+          <p className="text-slate-500 mt-4 font-bold text-sm">Targeted development across the critical dimensions of growth.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {[
-            { title: "Physical Discipline", icon: "fa-person-running", desc: "Movement, self-regulation, breathwork.", link: "/discipline" },
-            { title: "Academic Competence", icon: "fa-book-open", desc: "Homework support, goal setting.", link: "/academic" },
-            { title: "Social Skill", icon: "fa-users", desc: "Conflict resolution, rhetoric, teamwork.", link: "/social" },
-            { title: "Financial Literacy", icon: "fa-coins", desc: "Budgeting, 'padded' economy, value.", link: "/financial" },
-            { title: "Entrepreneurship", icon: "fa-rocket", desc: "Project work, ownership, bold execution.", link: "/entrepreneurship" },
+            { title: "Physical Discipline", icon: "fa-person-running", desc: "Movement, self-regulation, breathwork.", link: "/discipline", color: "bg-brand-gold" },
+            { title: "Academic Competence", icon: "fa-book-open", desc: "Homework support, goal setting.", link: "/academic", color: "bg-brand-navy" },
+            { title: "Social Skill", icon: "fa-users", desc: "Conflict resolution, rhetoric, teamwork.", link: "/social", color: "bg-brand-gold" },
+            { title: "Financial Literacy", icon: "fa-coins", desc: "Budgeting, 'padded' economy, value.", link: "/financial", color: "bg-brand-navy" },
+            { title: "Entrepreneurship", icon: "fa-rocket", desc: "Project work, ownership, bold execution.", link: "/entrepreneurship", color: "bg-brand-gold" },
           ].map((pillar, i) => (
             <Link
               key={i}
               to={pillar.link}
-              className="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-brand-navy hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group cursor-pointer block"
+              className="bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100 transition-all duration-500 hover:-translate-y-4 group cursor-pointer block text-center overflow-hidden relative"
             >
-              <div className="w-14 h-14 mx-auto bg-brand-light rounded-full flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-navy group-hover:text-brand-gold transition-colors">
+              <div className={`w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-8 text-white ${pillar.color} shadow-lg group-hover:rotate-12 transition-transform duration-500`}>
                 <i className={`fa-solid ${pillar.icon} text-2xl`}></i>
               </div>
-              <h3 className="font-black text-brand-navy mb-3 text-lg text-center uppercase group-hover:text-brand-gold transition-colors leading-tight">{pillar.title}</h3>
-              <p className="text-sm text-slate-500 text-center leading-relaxed font-medium">{pillar.desc}</p>
+              <h3 className="font-black text-brand-navy mb-4 text-lg uppercase group-hover:text-brand-gold transition-colors leading-none tracking-tight">{pillar.title}</h3>
+              <p className="text-xs text-slate-500 leading-relaxed font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">Explore Pillar</p>
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-gold to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </Link>
           ))}
         </div>

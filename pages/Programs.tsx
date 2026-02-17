@@ -5,68 +5,82 @@ const Programs: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero */}
-      <div className="relative bg-brand-navy text-white py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+      <div className="relative bg-brand-navy text-white py-40 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/60 via-brand-navy to-brand-navy"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <span className="text-brand-gold font-black tracking-[0.2em] uppercase text-sm mb-4 block animate-fade-in">Curriculum & Methodology</span>
-          <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 animate-fade-up leading-none">Built for the <span className="text-brand-gold">Real World</span>.</h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed animate-fade-up delay-100 font-medium">
-            We don't do "babysitting". We run a structured development lab designed to equip your child with the tools traditional schooling ignores.
+          <span className="bg-brand-gold/10 backdrop-blur-md border border-brand-gold/30 text-brand-gold font-black tracking-[0.4em] uppercase text-[10px] px-6 py-2 rounded-full mb-8 inline-block animate-fade-in">The Methodology</span>
+          <h1 className="text-6xl md:text-9xl font-black uppercase mb-8 animate-fade-up leading-[0.85] tracking-tighter">
+            The Lab <br /><span className="text-brand-gold italic">Experience.</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed animate-fade-up delay-100 font-medium">
+            We don't do "supervision". We run a high-performance environment designed to turn passive consumers into <span className="text-white font-bold">active creators</span>.
           </p>
+          <div className="mt-12 flex justify-center gap-4 animate-fade-up delay-200">
+            <div className="px-8 py-4 bg-brand-gold text-brand-navy font-black uppercase tracking-widest text-xs rounded-xl shadow-2xl">
+              Founding Member Perks Included
+            </div>
+          </div>
         </div>
       </div>
 
       {/* The Two Tracks */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="bg-white p-10 rounded-2xl shadow-xl border-t-8 border-brand-navy relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <i className="fa-solid fa-hammer text-9xl text-brand-navy"></i>
+          <div className="bg-white/80 backdrop-blur-xl p-12 rounded-[2.5rem] shadow-2xl border border-white/40 relative overflow-hidden group hover:-translate-y-4 transition-all duration-700">
+            <div className="absolute -top-10 -right-10 w-48 h-48 bg-brand-navy/5 rounded-full blur-3xl group-hover:bg-brand-navy/10 transition-colors"></div>
+            <div className="relative z-10">
+              <span className="text-brand-navy font-black uppercase tracking-[0.3em] text-[10px] mb-4 block opacity-60">Pillar Alpha • Ages 11-14</span>
+              <h2 className="text-5xl font-black uppercase text-brand-navy mb-8 tracking-tighter leading-none">The <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-navy to-slate-600">Builders</span></h2>
+              <p className="text-slate-600 mb-10 leading-relaxed font-medium text-lg">
+                The Builders track focuses on establishing the foundational habits of success. We ensure the connections that remain are those of discipline, curiosity, and respect.
+              </p>
+              <ul className="space-y-6">
+                {[
+                  { icon: "fa-hammer", label: "Academic Triage", desc: "Immediate homework completion strategies." },
+                  { icon: "fa-heart-pulse", label: "Physical Foundations", desc: "Coordination, posture, and breath control." },
+                  { icon: "fa-coins", label: "Micro-Economy", desc: "Earning 'Bell Bucks' for tasks to learn value." }
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-brand-navy/5 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-navy group-hover:text-brand-gold transition-colors">
+                      <i className={`fa-solid ${item.icon} text-sm`}></i>
+                    </div>
+                    <div>
+                      <span className="block font-black text-brand-navy uppercase tracking-tight text-sm mb-1">{item.label}</span>
+                      <span className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <span className="text-brand-navy font-black uppercase tracking-widest text-sm mb-2 block">Ages 11-14</span>
-            <h2 className="text-4xl font-black uppercase text-brand-navy mb-6">The Builders</h2>
-            <p className="text-slate-600 mb-8 leading-relaxed font-medium">
-              The Builders track focuses on establishing the foundational habits of success. At this age, the brain is pruning connections rapidly. We ensure the connections that remain are those of discipline, curiosity, and respect.
-            </p>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <i className="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span className="text-slate-700"><strong>Academic Triage:</strong> Immediate homework completion strategies.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <i className="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span className="text-slate-700"><strong>Physical Foundations:</strong> Coordination, posture, and breath control.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <i className="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span className="text-slate-700"><strong>Micro-Economy:</strong> Earning "Bell Bucks" for tasks to learn value.</span>
-              </li>
-            </ul>
           </div>
 
-          <div className="bg-white p-10 rounded-2xl shadow-xl border-t-8 border-brand-gold relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <i className="fa-solid fa-lightbulb text-9xl text-brand-gold"></i>
+          <div className="bg-brand-navy p-12 rounded-[2.5rem] shadow-2xl border border-white/10 relative overflow-hidden group hover:-translate-y-4 transition-all duration-700">
+            <div className="absolute -top-10 -right-10 w-48 h-48 bg-brand-gold/10 rounded-full blur-3xl group-hover:bg-brand-gold/20 transition-colors"></div>
+            <div className="relative z-10 text-white">
+              <span className="text-brand-gold font-black uppercase tracking-[0.3em] text-[10px] mb-4 block opacity-60">Pillar Omega • Ages 15-17</span>
+              <h2 className="text-5xl font-black uppercase text-brand-gold mb-8 tracking-tighter leading-none">The <span className="italic">Creators</span></h2>
+              <p className="text-slate-300 mb-10 leading-relaxed font-medium text-lg">
+                The Creators track shifts from habit formation to execution. Students are treated as junior associates—leading peer groups and market simulations.
+              </p>
+              <ul className="space-y-6">
+                {[
+                  { icon: "fa-lightbulb", label: "Portfolio Work", desc: "Creating real assets (code, media, business plans)." },
+                  { icon: "fa-comments", label: "Advanced Rhetoric", desc: "Negotiation, public speaking, and persuasion." },
+                  { icon: "fa-earth-americas", label: "Market Exposure", desc: "Direct mentorship from local industry leaders." }
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors border border-white/10">
+                      <i className={`fa-solid ${item.icon} text-sm`}></i>
+                    </div>
+                    <div>
+                      <span className="block font-black text-brand-gold uppercase tracking-tight text-sm mb-1">{item.label}</span>
+                      <span className="text-slate-400 text-sm font-medium leading-relaxed">{item.desc}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <span className="text-brand-gold font-black uppercase tracking-widest text-sm mb-2 block">Ages 15-17</span>
-            <h2 className="text-4xl font-black uppercase text-brand-navy mb-6">The Creators</h2>
-            <p className="text-slate-600 mb-8 leading-relaxed font-medium">
-              The Creators track shifts from habit formation to execution. Students are treated as junior associates. They manage projects, lead peer groups, and engage in real-world market simulations.
-            </p>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <i className="fa-solid fa-check text-brand-navy mt-1"></i>
-                <span className="text-slate-700"><strong>Portfolio Work:</strong> Creating real assets (code, media, business plans).</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <i className="fa-solid fa-check text-brand-navy mt-1"></i>
-                <span className="text-slate-700"><strong>Advanced Rhetoric:</strong> Negotiation and public speaking.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <i className="fa-solid fa-check text-brand-navy mt-1"></i>
-                <span className="text-slate-700"><strong>Market Exposure:</strong> Guest lectures from local business leaders.</span>
-              </li>
-            </ul>
           </div>
         </div>
       </section>

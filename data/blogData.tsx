@@ -17,6 +17,80 @@ const PlaceholderParagraph = () => (
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'phx-danger-zone',
+    title: "The 3-6 PM Danger Zone: Why Arcadia Parents are Choosing the Lab",
+    excerpt: "School ends at 3. Work ends at 6. For teenagers in Phoenix, those 3 hours are either the launchpad for success or a descent into digital atrophy.",
+    category: "Phoenix Focus",
+    author: "Dr. Elena Rostova",
+    authorRole: "Head of Curriculum",
+    date: "Feb 17, 2024",
+    readTime: "8 min read",
+    imageUrl: "file:///Users/andreschuler/.gemini/antigravity/brain/a144da83-d15b-44de-b543-4247d44d2c44/blog_arcadia_danger_zone_1771358369108.png",
+    tags: ["Arcadia", "Teen Development", "Safety"],
+    content: (
+      <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
+        <p className="text-xl font-light text-slate-600 border-l-4 border-brand-gold pl-4 italic">
+          "Unsupervised. Unengaged. Plugged in."
+        </p>
+        <p>
+          In the heart of Arcadia, a new kind of crisis is unfolding. It's not a lack of resources, but a lack of *structured challenge*. When school ends at 3:00 PM, the average Phoenix teenager enters a three-hour window of passive consumption that is eroding their social skills and academic drive.
+        </p>
+        <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The Social Atrophy of the Afternoon</h2>
+        <p>
+          We've seen it across the community: brilliant kids who can navigate complex game mechanics but struggle to look an adult in the eye or hold a 5-minute conversation. The 'Danger Zone' isn't just about safety; it's about the opportunity cost of three hours lost to algorithms.
+        </p>
+        <p>
+          Second Bell Lab was designed specifically for this gap. We turn the 'Danger Zone' into the most productive part of the day.
+        </p>
+      </div>
+    )
+  },
+  {
+    id: 'phx-creators-revolution',
+    title: "From Consumers to Creators: The Phoenix After-School Revolution",
+    excerpt: "How a group of local teens is bypassing the 'entry-level' trap by building real assets in our Arcadia Innovation Hub.",
+    category: "Success Stories",
+    author: "Marcus Thorne",
+    authorRole: "Director of Operations",
+    date: "Feb 15, 2024",
+    readTime: "10 min read",
+    imageUrl: "file:///Users/andreschuler/.gemini/antigravity/brain/a144da83-d15b-44de-b543-4247d44d2c44/blog_phx_creators_1771358384404.png",
+    tags: ["Innovation", "Phoenix", "Future of Work"],
+    content: (
+      <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
+        <p>
+          The traditional career ladder has lost its bottom rungs. In the age of AI, 'entry-level' tasks are being automated. Our Creators track in Phoenix treats students as junior associates, giving them the 'Human Premium' skills that AI cannot replicate.
+        </p>
+        <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The Arcadia Cohort</h2>
+        <p>
+          Last month, our students successfully pitched a localized community project to local business owners. They weren't just practicing—they were executing. This is the shift from passive consumer to active builder.
+        </p>
+      </div>
+    )
+  },
+  {
+    id: 'bell-bucks-phx',
+    title: "The Bell Bucks Economy: Teaching PHX Teens the Value of a Dollar",
+    excerpt: "Why digital money is making teens financially illiterate, and how our physical simulated economy is fixing it.",
+    category: "Financial Literacy",
+    author: "Sarah Jenkins",
+    authorRole: "Community Relations",
+    date: "Feb 12, 2024",
+    readTime: "6 min read",
+    imageUrl: "file:///Users/andreschuler/.gemini/antigravity/brain/a144da83-d15b-44de-b543-4247d44d2c44/blog_bell_bucks_economy_1771358399690.png",
+    tags: ["Finance", "Education", "Arcadia"],
+    content: (
+      <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
+        <p>
+          Money is becoming invisible. To a teenager with Apple Pay, it's just a number on a screen. At Second Bell Lab, we've introduced a physical economy using 'Bell Bucks'.
+        </p>
+        <p>
+          Students earn for leadership, lose for lack of discipline, and pay 'rent' for their space. The lessons learned on the floor of the Lab are more impactful than any textbook could ever be.
+        </p>
+      </div>
+    )
+  },
+  {
     id: 'danger-zone-3pm-6pm',
     title: "The Danger Zone: Why the 3PM-6PM Gap Determines Your Child's Future",
     excerpt: "The workday ends at 5. School ends at 3. In that gap lies the difference between stagnation and acceleration. Extensive analysis of the unsupervised afternoon.",

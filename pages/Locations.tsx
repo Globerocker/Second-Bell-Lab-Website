@@ -3,45 +3,41 @@ import React from 'react';
 const Locations: React.FC = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
-            <div className="bg-brand-navy text-white py-24 text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/location-phoenix-ext.png')] bg-cover bg-center opacity-40"></div>
-                <div className="relative z-10">
-                    <h1 className="text-5xl md:text-7xl font-heading font-bold mb-4">Our Locations</h1>
-                    <p className="text-slate-300 text-lg max-w-2xl mx-auto">Strategically positioned to serve the greater Phoenix metropolitan area.</p>
+            <div className="bg-brand-navy text-white py-32 text-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/images/location-phoenix-ext.png')] bg-cover bg-center opacity-30 scale-105 animate-pulse-slow"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/60 via-brand-navy/40 to-slate-50"></div>
+                <div className="relative z-10 px-4">
+                    <span className="bg-white/5 backdrop-blur-md border border-white/10 text-brand-gold font-black uppercase tracking-[0.4em] text-[10px] mb-8 inline-block px-6 py-2 rounded-full animate-fade-in shadow-2xl">Laboratory Network</span>
+                    <h1 className="text-6xl md:text-9xl font-black mb-8 uppercase tracking-tighter leading-none">Find Your <br /><span className="text-brand-gold italic">Lab.</span></h1>
+                    <p className="text-brand-navy/60 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">Strategically positioned to serve the greater Phoenix metropolitan area.</p>
                 </div>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 py-16">
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 mb-16">
+                <div className="bg-white/80 backdrop-blur-xl rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.05)] overflow-hidden border border-white/40 mb-20 transform hover:-translate-y-2 transition-all duration-700">
                     <div className="grid grid-cols-1 lg:grid-cols-2">
-                        <div className="p-10 lg:p-14 flex flex-col justify-center">
-                            <div className="inline-flex items-center gap-2 mb-6">
-                                <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-                                <span className="text-green-600 font-bold uppercase tracking-wider text-xs">Flagship Location • Open Now</span>
+                        <div className="p-12 lg:p-16 flex flex-col justify-center">
+                            <div className="inline-flex items-center gap-3 mb-8">
+                                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></span>
+                                <span className="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">Flagship • Arcadia PHX</span>
                             </div>
-                            <h2 className="text-4xl font-heading font-bold text-brand-navy mb-4">Phoenix HQ (Arcadia)</h2>
-                            <p className="text-slate-600 mb-8 leading-relaxed text-lg">
-                                Our flagship facility spans <strong className="text-brand-navy">12,000 square feet</strong> of purpose-built development space. Located in the heart of Arcadia, it features a dedicated dojo, a "Deep Work" library with sound-dampened study pods, a collaborative startup lounge, and a tech-free recharge garden.
+                            <h2 className="text-5xl font-black text-brand-navy mb-6 uppercase tracking-tighter leading-tight">Phoenix <span className="text-brand-gold">HQ</span></h2>
+                            <p className="text-slate-600 mb-10 leading-relaxed text-lg font-medium">
+                                Our flagship facility spans <strong className="text-brand-navy">12,000 square feet</strong> of purpose-built development space. Featuring a dedicated dojo, sound-dampened study pods, and a collaborative startup lounge.
                             </p>
 
-                            <div className="space-y-4 mb-8">
-                                <div className="flex items-center gap-4 text-slate-700">
-                                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-brand-gold"><i className="fa-solid fa-location-dot"></i></div>
-                                    <div>
-                                        <p className="font-bold text-brand-navy">Address</p>
-                                        <p>4400 E Camelback Rd, Phoenix, AZ 85018</p>
-                                    </div>
+                            <div className="grid grid-cols-2 gap-8 mb-12">
+                                <div className="space-y-1">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Address</p>
+                                    <p className="text-brand-navy font-bold leading-tight">4400 E Camelback Rd<br />Phoenix, AZ 85018</p>
                                 </div>
-                                <div className="flex items-center gap-4 text-slate-700">
-                                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-brand-gold"><i className="fa-solid fa-ruler-combined"></i></div>
-                                    <div>
-                                        <p className="font-bold text-brand-navy">Capacity</p>
-                                        <p>50 Students Max (Currently: 38 Enrolled)</p>
-                                    </div>
+                                <div className="space-y-1">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Capacity</p>
+                                    <p className="text-brand-navy font-bold">50 Students Max<br /><span className="text-green-600">38 Enrolled</span></p>
                                 </div>
                             </div>
 
-                            <button className="px-8 py-4 bg-brand-navy text-white font-bold rounded-lg hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg w-fit">
+                            <button className="px-10 py-5 bg-brand-navy text-white font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 w-fit">
                                 Schedule a Tour
                             </button>
                         </div>
@@ -70,14 +66,12 @@ const Locations: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Expansion */}
-                <div className="text-center max-w-2xl mx-auto">
-                    <h3 className="text-2xl font-bold text-brand-navy mb-4">Expansion Roadmap</h3>
-                    <p className="text-slate-600 mb-8">We are actively securing leases for North Scottsdale (Fall 2025) and Gilbert (Spring 2026).</p>
-                    <div className="flex justify-center gap-4">
-                        <div className="px-6 py-3 bg-white border border-slate-300 rounded-lg text-slate-400 font-bold cursor-not-allowed">Scottsdale (Waitlist Full)</div>
-                        <div className="px-6 py-3 bg-white border-2 border-brand-navy rounded-lg text-brand-navy font-bold hover:bg-brand-navy hover:text-white transition-colors cursor-pointer">Gilbert (Join List)</div>
-                    </div>
+                {/* Expansion - Hidden for Focus */}
+                <div className="text-center max-w-3xl mx-auto mt-12 p-12 bg-brand-navy/5 rounded-[2.5rem] border border-brand-navy/10">
+                    <h3 className="text-2xl font-black text-brand-navy mb-4 uppercase tracking-tighter">Founding Phase</h3>
+                    <p className="text-slate-600 mb-0 font-medium leading-relaxed">
+                        We are currently in the validation and working phase for our Phoenix HQ. By joining the waitlist, you help us calibrate the final dojo and library capacity to best serve the community. Founding members receive priority enrollment.
+                    </p>
                 </div>
             </div>
         </div>

@@ -3,13 +3,17 @@ import React from 'react';
 const About: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
-      <div className="bg-brand-beige py-24">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <span className="text-brand-gold font-bold uppercase tracking-widest text-sm mb-4 block">Our Story</span>
-          <h1 className="text-5xl font-heading font-bold text-brand-navy mb-8">The Gap Was Widening. <br/>So We Built a Bridge.</h1>
-          <p className="text-xl text-slate-600 leading-relaxed font-light">
-            We noticed a disturbing trend. Smart kids were graduating school without the basic life skills needed to navigate the real world. They could solve calculus problems but couldn't shake hands, manage a budget, or handle conflict.
+      <div className="bg-brand-navy py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-brand-gold/20 via-transparent to-transparent"></div>
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <span className="bg-white/5 backdrop-blur-md border border-white/10 text-brand-gold font-black uppercase tracking-[0.4em] text-[10px] mb-8 inline-block px-6 py-2 rounded-full animate-fade-in">Our Genesis</span>
+          <h1 className="text-6xl md:text-8xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.85]">The Gap Was Widening. <br /><span className="text-brand-gold italic">So We Built a Bridge.</span></h1>
+          <p className="text-xl md:text-2xl text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto mb-10">
+            Smart kids were graduating without the tools to navigate the real world. We built the lab to change that.
           </p>
+          <div className="inline-block px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-slate-400 text-sm italic max-w-xl">
+            "We are currently in the active working and validation phase. Every member of our Founding Waitlist helps shape the future of the Arcadia HQ."
+          </div>
         </div>
       </div>
 

@@ -6,13 +6,13 @@ const SocialSkill: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero */}
-      <div className="relative h-[60vh] overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
-        <div className="absolute inset-0 bg-brand-navy/80 mix-blend-multiply"></div>
+      <div className="relative h-[60vh] overflow-hidden bg-brand-navy">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 scale-105 animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/70 via-brand-navy/50 to-slate-50"></div>
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
-          <span className="text-brand-gold font-bold tracking-[0.3em] uppercase text-sm mb-4 animate-fade-in">Pillar 03</span>
-          <h1 className="text-5xl md:text-7xl font-heading font-bold text-white mb-6 animate-fade-up">Social Skill & Rhetoric</h1>
-          <p className="text-xl text-slate-200 max-w-2xl animate-fade-up delay-200">
+          <span className="bg-brand-gold/10 backdrop-blur-md border border-brand-gold/30 text-brand-gold font-black tracking-[0.4em] uppercase text-[10px] px-6 py-2 rounded-full mb-8 animate-fade-in shadow-2xl">Pillar 03 • Connection</span>
+          <h1 className="text-6xl md:text-9xl font-black text-brand-navy mb-8 animate-fade-up tracking-tighter leading-none uppercase">Social <br /><span className="text-brand-gold italic">Skill</span></h1>
+          <p className="text-lg md:text-xl text-brand-navy/70 max-w-2xl animate-fade-up delay-200 font-medium leading-relaxed">
             In an age of digital isolation, we force analog connection. Eye contact, articulation, and conflict resolution.
           </p>
         </div>

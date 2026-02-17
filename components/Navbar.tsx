@@ -17,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   }, []);
 
   const mainNav = [
-    { path: '/programs', label: 'Programs' },
+    { path: '/programs', label: 'Experience' },
     { path: '/locations', label: 'Locations' },
     { path: '/blog', label: 'Blog' },
     { path: '/about', label: 'About' },
@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           <Link to="/" className="flex items-center cursor-pointer group">
             <div className="flex-shrink-0 flex items-center gap-3">
               <img
-                src="/images/bell-icon.svg"
+                src="/images/bell-icon.png"
                 alt="Second Bell Lab Logo"
                 className="w-12 h-12 hover:scale-105 transition-transform duration-300"
               />

@@ -30,30 +30,23 @@ const Landing: React.FC<LandingProps> = () => {
             <div className="lg:col-span-7 space-y-8 animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-gold/10 border border-brand-gold/30 rounded-full text-brand-gold text-[10px] font-black uppercase tracking-[0.2em]">
                 <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
-                Enrollment Open for Fall 2025
+                Founding Waitlist Now Open • Phoenix HQ
               </div>
               <h1 className="text-5xl md:text-8xl font-black text-white leading-none uppercase tracking-tighter">
-                Bridging <br />
-                the <span className="text-brand-gold italic">Gap</span> <br />
-                <span className="relative z-10 after:absolute after:bottom-2 after:left-0 after:w-full after:h-4 after:bg-brand-gold/20 after:-z-10 tracking-tight">Real World.</span>
+                Master the <br />
+                <span className="text-brand-gold italic">3-6 PM Danger Zone.</span>
               </h1>
               <p className="text-lg md:text-xl text-slate-300 max-w-xl leading-relaxed font-medium">
-                A premium after-school development concept designed to close the widening gap between public schooling and real-world skill development.
+                The school day ends at 3. The professional workday ends at 6. We turn that unsupervised gap into <span className="text-brand-gold font-bold">the most productive part of the day.</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-6 pt-4 items-start sm:items-center">
                 <Link
-                  to="/parents"
-                  className="px-10 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.1em] rounded-xl hover:bg-white hover:text-brand-navy transition-all duration-500 shadow-[0_20px_40px_rgba(251,191,36,0.2)] transform hover:-translate-y-1 active:scale-95 text-center flex items-center justify-center"
-                  aria-label="Start Your Application"
+                  to="/apply"
+                  className="px-10 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.1em] rounded-xl hover:bg-white hover:text-brand-navy transition-all duration-500 shadow-[0_20px_40px_rgba(251,191,36,0.3)] transform hover:-translate-y-1 active:scale-95 text-center flex items-center justify-center relative overflow-hidden group"
+                  aria-label="Join the Waitlist"
                 >
-                  Start Your Application
-                </Link>
-                <Link
-                  to="/flyer"
-                  className="text-slate-400 text-xs hover:text-brand-gold flex items-center gap-3 transition-colors font-bold uppercase tracking-[0.2em] group"
-                  aria-label="View Printable Brochure"
-                >
-                  <i className="fa-solid fa-print group-hover:scale-110 transition-transform"></i> View Printable Brochure
+                  <span className="relative z-10">Join the Waitlist</span>
+                  <div className="absolute inset-0 bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
                 </Link>
               </div>
             </div>
@@ -96,16 +89,121 @@ const Landing: React.FC<LandingProps> = () => {
             { icon: 'fa-seedling', title: 'Life Skills', desc: 'Financial literacy, entrepreneurship, and etiquette. Skills standard curricula often miss but life demands.', border: 'border-brand-navy' },
             { icon: 'fa-dumbbell', title: 'Physical Discipline', desc: 'Combatives basics, gymnastics, and breathwork. Reconnecting the mind and body after a day at a desk.', border: 'border-brand-gold' }
           ].map((feature, idx) => (
-            <div key={idx} className={`bg-white p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border-b-8 ${feature.border} group cursor-default transform hover:-translate-y-2`}>
-              <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-navy group-hover:rotate-12 transition-all duration-500 shadow-inner">
-                <i className={`fa-solid ${feature.icon} text-4xl text-brand-navy group-hover:text-brand-gold transition-colors`}></i>
+            <div key={idx} className={`bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl hover:shadow-[0_30px_60px_#00000020] transition-all duration-700 border border-white/40 group cursor-default transform hover:-translate-y-4`}>
+              <div className="w-20 h-20 bg-slate-100/50 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-brand-gold transition-all duration-500 shadow-inner overflow-hidden relative">
+                <div className="absolute inset-0 bg-brand-navy opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <i className={`fa-solid ${feature.icon} text-4xl text-brand-navy group-hover:text-brand-gold relative z-10 transition-colors`}></i>
               </div>
-              <h3 className="text-2xl font-black uppercase text-brand-navy mb-4 group-hover:text-brand-gold transition-colors tracking-tight">{feature.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed font-medium">
+              <h3 className="text-3xl font-black uppercase text-brand-navy mb-5 group-hover:text-brand-gold transition-colors tracking-tight leading-none">{feature.title}</h3>
+              <p className="text-slate-500 text-base leading-relaxed font-medium">
                 {feature.desc}
               </p>
+              <div className={`h-1.5 w-12 mt-8 rounded-full transition-all duration-500 group-hover:w-full ${idx === 1 ? 'bg-brand-navy' : 'bg-brand-gold'}`}></div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* The Problem Section - The Danger Zone */}
+      <section className="py-32 bg-brand-navy relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-red-500/5 via-transparent to-transparent"></div>
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-20 space-y-4">
+            <span className="text-red-500 font-black tracking-[0.4em] uppercase text-xs">The Reality</span>
+            <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none">
+              The 3-hour <span className="text-red-500 italic">Void.</span>
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto font-medium">
+              For millions of teenagers, the hours between school and home are a developmental dead zone.
+              The risks are no longer just physical; they are psychological and behavioral.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: 'Digital Atrophy', desc: 'Active minds replaced by passive algorithms. 3 hours of TikTok is enough to erode a weeks worth of focus.', icon: 'fa-mobile-screen-button' },
+              { title: 'The Sleep Thief', desc: 'Evening panic sessions to finish homework lead to chronic exhaustion and mental fog.', icon: 'fa-moon' },
+              { title: 'Social Friction', desc: 'Unsupervised environments often harbor peer pressure and the erosion of basic etiquette.', icon: 'fa-users-slash' },
+              { title: 'The Motivation Gap', desc: 'When the path of least resistance wins every afternoon, the "growth mindset" disappears.', icon: 'fa-arrow-trend-down' }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-all group">
+                <i className={`fa-solid ${item.icon} text-3xl text-red-500/50 group-hover:text-red-500 mb-6 transition-colors`}></i>
+                <h4 className="text-white font-black uppercase tracking-tight text-xl mb-3">{item.title}</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Smart Savings Section */}
+      <section className="py-32 bg-slate-50 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8">
+              <div>
+                <span className="text-brand-navy font-black tracking-[0.4em] uppercase text-xs mb-4 block">Smart Economics</span>
+                <h2 className="text-5xl md:text-7xl font-black text-brand-navy uppercase tracking-tighter leading-none">
+                  A Fractional <br /><span className="text-brand-gold italic">Success Stack.</span>
+                </h2>
+              </div>
+              <p className="text-slate-600 text-lg leading-relaxed font-medium">
+                To replicate the Lab Experience on your own, you would need to manage five different vendors and spend thousands more per month. We consolidated the high-performance life into a single membership.
+              </p>
+
+              <div className="space-y-4">
+                {[
+                  { label: 'Private Tutor / Academic Center', cost: '$400/mo' },
+                  { label: 'Kids Fitness / Gym Membership', cost: '$150/mo' },
+                  { label: 'Reliable Supervision / Nanny', cost: '$1,200/mo' },
+                  { label: 'Health-Focused Meals / Snacks', cost: '$300/mo' },
+                  { label: 'Entrepreneurship / Life Coaching', cost: '$500/mo' }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex justify-between items-center py-4 border-b border-slate-200">
+                    <span className="text-slate-500 font-medium">{item.label}</span>
+                    <span className="text-slate-400 font-bold line-through">{item.cost}</span>
+                  </div>
+                ))}
+                <div className="flex justify-between items-center pt-6">
+                  <span className="text-brand-navy font-black text-2xl uppercase tracking-tighter">Total Market Value</span>
+                  <span className="text-brand-navy font-black text-2xl">$2,550+/mo</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-brand-navy rounded-[3rem] p-12 text-white relative shadow-2xl overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+              <div className="relative z-10 space-y-8">
+                <div className="inline-block px-4 py-2 bg-brand-gold text-brand-navy font-black text-[10px] uppercase tracking-widest rounded-full">The Lab Membership</div>
+                <h3 className="text-5xl font-black uppercase tracking-tighter leading-none">Everything. <br /><span className="text-brand-gold italic">Included.</span></h3>
+                <ul className="space-y-4">
+                  {[
+                    'Elite Academic Performance Support',
+                    'Brazilian Jiu-Jitsu & Physical Discipline',
+                    'Financial Literacy & Real-World Economics',
+                    'Guided Entrepreneurship & Assets Lab',
+                    'Organic, Health-Forward Nutrition'
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-4 text-slate-300">
+                      <div className="w-5 h-5 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold text-[10px]">
+                        <i className="fa-solid fa-check"></i>
+                      </div>
+                      <span className="font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="pt-8 border-t border-white/10">
+                  <p className="text-slate-400 text-sm mb-6">Founding Members save an additional 10% on lifetime tuition during our waitlist phase.</p>
+                  <Link
+                    to="/apply"
+                    className="w-full py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-widest text-center block rounded-xl hover:bg-white transition-all group-hover:scale-[1.02] active:scale-95 shadow-2xl"
+                  >
+                    Lock In Founding Rate
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

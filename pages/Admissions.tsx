@@ -9,9 +9,15 @@ const Admissions: React.FC = () => {
         description="Elite after-school development membership tiers and pricing. Join the Second Bell Lab cohort."
       />
 
-      <div className="bg-brand-navy text-white py-24 text-center">
-        <h1 className="text-5xl font-heading font-bold mb-4 uppercase tracking-tighter">Admissions & Tuition</h1>
-        <p className="text-xl text-slate-300 max-w-2xl mx-auto">Membership is by application only. We are selective to ensure the culture remains elite and focused.</p>
+      <div className="bg-brand-navy text-white py-32 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-brand-gold/10 via-transparent to-transparent"></div>
+        <div className="relative z-10 px-4">
+          <span className="bg-brand-gold/10 backdrop-blur-md border border-brand-gold/30 text-brand-gold font-black tracking-[0.4em] uppercase text-[10px] px-6 py-2 rounded-full mb-8 inline-block animate-fade-in">Founding Waitlist Incentives</span>
+          <h1 className="text-6xl md:text-8xl font-black mb-8 uppercase tracking-tighter leading-none">Tuition & <br /><span className="text-brand-gold italic">Founding Membership</span></h1>
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
+            Join the Founding Waitlist today to secure a <span className="text-brand-gold font-bold">Free Day Pass</span> and <span className="text-brand-gold font-bold">10% Off</span> lifetime membership when we launch.
+          </p>
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-20">
@@ -41,15 +47,15 @@ const Admissions: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {/* Starter */}
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col h-full transform hover:-translate-y-1 transition-transform">
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white/40 overflow-hidden flex flex-col h-full transform hover:-translate-y-2 transition-all duration-500">
               <div className="p-10 flex-grow">
-                <h3 className="text-2xl font-black uppercase text-slate-400 mb-4 tracking-tight">Starter</h3>
+                <h3 className="text-2xl font-black uppercase text-slate-400 mb-4 tracking-tight leading-none">Starter</h3>
                 <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-5xl font-black text-brand-navy">$690</span>
+                  <span className="text-5xl font-black text-brand-navy tracking-tighter">$690</span>
                   <span className="text-slate-400 font-bold">/mo</span>
                 </div>
                 <div className="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-widest rounded mb-8">10 Visits Included</div>
-                <ul className="space-y-4 text-sm text-slate-700">
+                <ul className="space-y-4 text-sm text-slate-700 font-medium">
                   <li className="flex gap-3 items-start"><i className="fa-solid fa-circle-check text-brand-gold mt-1"></i> <span>3:00 PM - 6:00 PM Access</span></li>
                   <li className="flex gap-3 items-start"><i className="fa-solid fa-circle-check text-brand-gold mt-1"></i> <span>Academic Homework Support</span></li>
                   <li className="flex gap-3 items-start"><i className="fa-solid fa-circle-check text-brand-gold mt-1"></i> <span>Physical Discipline Sessions</span></li>
@@ -57,7 +63,7 @@ const Admissions: React.FC = () => {
                 </ul>
               </div>
               <div className="p-10 pt-0">
-                <button className="w-full py-4 bg-brand-navy text-white font-black uppercase tracking-widest text-xs rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all">Apply for Starter</button>
+                <button className="w-full py-4 bg-brand-navy text-white font-black uppercase tracking-widest text-[10px] rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-lg active:scale-95">Apply for Starter</button>
               </div>
             </div>
 
