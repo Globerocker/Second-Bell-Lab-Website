@@ -31,10 +31,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
           {/* Logo - Second Bell Lab */}
           <div className="flex items-center cursor-pointer group" onClick={() => setPage(Page.HOME)}>
             <div className="flex-shrink-0 flex items-center gap-3">
-              <img 
-                src="/images/bell-icon.svg" 
-                alt="Second Bell Lab Logo" 
-                className="w-12 h-12 hover:scale-105 transition-transform duration-300" 
+              <img
+                src="/images/bell-icon.svg"
+                alt="Second Bell Lab Logo"
+                className="w-12 h-12 hover:scale-105 transition-transform duration-300"
               />
               <div className="flex flex-col justify-center h-full">
                 <span className="font-heading font-black text-xl md:text-2xl text-brand-navy leading-none tracking-tight uppercase">Second<span className="text-brand-gold">Bell</span>Lab</span>
@@ -42,16 +42,15 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
               </div>
             </div>
           </div>
-          
+
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
             {mainNav.map((item) => (
               <button
                 key={item.id}
                 onClick={() => setPage(item.id as Page)}
-                className={`text-sm font-black uppercase tracking-wide transition-all relative group py-2 ${
-                  currentPage === item.id ? 'text-brand-navy' : 'text-slate-500 hover:text-brand-navy'
-                }`}
+                className={`text-sm font-black uppercase tracking-wide transition-all relative group py-2 ${currentPage === item.id ? 'text-brand-navy' : 'text-slate-500 hover:text-brand-navy'
+                  }`}
               >
                 {item.label}
                 <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-brand-gold transform transition-transform duration-300 origin-left ${currentPage === item.id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
@@ -61,20 +60,27 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
 
           {/* Actions */}
           <div className="hidden lg:flex items-center gap-6">
-             <div className="flex flex-col items-end mr-2">
-                <a href="tel:6025550199" className="text-brand-navy font-bold text-sm hover:text-brand-gold transition-colors">+1 (602) 555-0199</a>
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider">Admissions Line</span>
-             </div>
-             <button 
-               onClick={() => setPage(Page.ASSISTANT)}
-               className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300"
-               title="AI Assistant"
-             >
-               <i className="fa-solid fa-robot"></i>
-             </button>
-             <button 
+            <div className="flex flex-col items-end mr-2">
+              <a href="tel:6025550199" className="text-brand-navy font-bold text-sm hover:text-brand-gold transition-colors" aria-label="Call admissions line">+1 (602) 555-0199</a>
+              <span className="text-[10px] text-slate-400 uppercase tracking-wider">Admissions Line</span>
+            </div>
+            <div className="flex gap-4">
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all" aria-label="LinkedIn"><i className="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all" aria-label="YouTube"><i className="fa-brands fa-youtube"></i></a>
+            </div>
+            <button
+              onClick={() => setPage(Page.ASSISTANT)}
+              className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-brand-navy hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all duration-300"
+              title="AI Assistant"
+              aria-label="AI Assistant"
+            >
+              <i className="fa-solid fa-robot"></i>
+            </button>
+            <button
               onClick={() => setPage(Page.APPLICATION)}
-              className="px-6 py-3 bg-brand-navy text-white text-xs font-black uppercase tracking-widest rounded-lg hover:bg-brand-gold hover:text-brand-navy transition-all duration-300 shadow-lg shadow-brand-navy/20 transform hover:-translate-y-0.5"
+              className="px-6 py-3 bg-brand-navy text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-lg hover:bg-brand-gold hover:text-brand-navy transition-all duration-300 shadow-lg shadow-brand-navy/20 transform hover:-translate-y-0.5"
+              aria-label="Apply Now"
             >
               Apply Now
             </button>
@@ -82,16 +88,16 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, setPage }) => {
 
           {/* Mobile Menu Button */}
           <div className="flex items-center lg:hidden gap-4">
-             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-brand-navy p-2">
-                <i className={`fa-solid ${mobileMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
-             </button>
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-brand-navy p-2" aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}>
+              <i className={`fa-solid ${mobileMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+            </button>
           </div>
         </div>
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 flex flex-col gap-4 animate-fade-in z-50">
-            {[...mainNav, {id: Page.APPLICATION, label: 'Apply Now'}, {id: Page.CONTACT, label: 'Contact'}].map((item) => (
+            {[...mainNav, { id: Page.APPLICATION, label: 'Apply Now' }, { id: Page.CONTACT, label: 'Contact' }].map((item) => (
               <button
                 key={item.id}
                 onClick={() => { setPage(item.id as Page); setMobileMenuOpen(false); }}
