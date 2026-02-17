@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
                             </div>
                             <div>
                                 <p className="font-bold text-xs uppercase tracking-wider text-slate-400">Email</p>
-                                <p className="text-lg font-semibold">admissions@nanobanana.com</p>
+                                <p className="text-lg font-semibold">admissions@secondbell.com</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4 group cursor-pointer">
@@ -94,7 +94,7 @@ const Contact: React.FC = () => {
          <div className="max-w-3xl mx-auto">
              <div className="text-center mb-8">
                  <h2 className="text-2xl font-black text-brand-navy uppercase">Official E-Mail Signature</h2>
-                 <p className="text-slate-500">Copy this footer for your official Nano Banana correspondence.</p>
+                 <p className="text-slate-500">Copy this footer for your official Second Bell Lab correspondence.</p>
              </div>
              
              <div className="bg-white p-8 rounded-xl shadow-lg border border-slate-200 relative group">
@@ -108,12 +108,7 @@ const Contact: React.FC = () => {
                  <div className="flex flex-col md:flex-row gap-6 items-center md:items-start font-sans">
                      {/* Logo Section */}
                      <div className="flex-shrink-0">
-                         <div className="w-20 h-20 bg-brand-navy rounded-xl flex items-center justify-center border-2 border-brand-gold shadow-[4px_4px_0px_0px_#fbbf24]">
-                             <svg viewBox="0 0 100 100" className="w-12 h-12 fill-white">
-                                <path d="M20,80 C10,10 85,10 85,30 C50,30 50,80 20,80 Z" />
-                                <circle cx="82" cy="22" r="6" className="fill-brand-gold" />
-                             </svg>
-                         </div>
+                         <img src="/images/bell-icon.svg" className="w-20 h-20 shadow-md rounded-xl" alt="Second Bell Lab Logo" />
                      </div>
                      
                      {/* Text Section */}
@@ -124,13 +119,13 @@ const Contact: React.FC = () => {
                          <div className="text-slate-600 text-sm space-y-1">
                              <p className="flex items-center justify-center md:justify-start gap-2">
                                  <i className="fa-solid fa-building text-slate-400"></i> 
-                                 <span className="font-bold text-brand-navy">Nano Banana Inc.</span>
+                                 <span className="font-bold text-brand-navy">Second Bell Lab Inc.</span>
                              </p>
                              <p className="flex items-center justify-center md:justify-start gap-2">
                                  <i className="fa-solid fa-phone text-slate-400"></i> +1 (602) 555-0199
                              </p>
                              <p className="flex items-center justify-center md:justify-start gap-2">
-                                 <i className="fa-solid fa-globe text-slate-400"></i> www.nanobanana.com
+                                 <i className="fa-solid fa-globe text-slate-400"></i> www.secondbell.com
                              </p>
                          </div>
                          
