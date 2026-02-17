@@ -22,9 +22,9 @@ const Footer: React.FC<{ setPage: (p: Page) => void }> = ({ setPage }) => {
               We build resilient leaders through academic support, financial literacy, and disciplined physical training.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all"><i className="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all"><i className="fa-brands fa-instagram"></i></a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all"><i className="fa-brands fa-youtube"></i></a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all" aria-label="LinkedIn"><i className="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-navy transition-all" aria-label="YouTube"><i className="fa-brands fa-youtube"></i></a>
             </div>
           </div>
 
