@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           <Link to="/" className="flex items-center cursor-pointer group">
             <div className="flex-shrink-0 flex items-center gap-3">
               <img
-                src="/images/bell-icon.png"
+                src="/images/bell-icon.svg"
                 alt="Second Bell Lab Logo"
                 className="w-12 h-12 hover:scale-105 transition-transform duration-300"
               />

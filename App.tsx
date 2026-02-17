@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'r
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SplashScreen from './components/SplashScreen';
+import WaitlistBanner from './components/WaitlistBanner';
+import Analytics from './components/Analytics';
 
 // Lazy Loaded Pages
 const Landing = lazy(() => import('./pages/Landing'));
@@ -37,8 +39,6 @@ const PageLoader = () => (
   </div>
 );
 
-import WaitlistBanner from './components/WaitlistBanner';
-
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
 
@@ -46,7 +46,6 @@ const App: React.FC = () => {
     <Router>
       <ScrollToTop />
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
-      <WaitlistBanner />
       <AppContent />
     </Router>
   );
@@ -59,7 +58,9 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-900 bg-slate-50 relative selection:bg-brand-gold selection:text-brand-navy">
-      {!isNoLayoutPage && <Navbar />}
+      <Analytics />
+      {!isNoLayoutPage && !isAssistantPage && <WaitlistBanner />}
+      {!isNoLayoutPage && !isAssistantPage && <Navbar />}
 
       <main className="flex-grow">
         <Suspense fallback={<PageLoader />}>

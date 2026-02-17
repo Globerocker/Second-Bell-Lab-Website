@@ -21,7 +21,7 @@ const SplashScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
                 {/* Logo Container */}
                 <div className="relative animate-fade-up">
                     <img
-                        src="/images/bell-icon.png"
+                        src="/images/bell-icon.svg"
                         alt="Second Bell Lab"
                         className="w-32 h-32 md:w-48 md:h-48 drop-shadow-[0_0_50px_rgba(251,191,36,0.3)]"
                     />

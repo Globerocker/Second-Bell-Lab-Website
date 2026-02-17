@@ -37,7 +37,7 @@ const Landing: React.FC<LandingProps> = () => {
                 <span className="text-brand-gold italic">3-6 PM Danger Zone.</span>
               </h1>
               <p className="text-lg md:text-xl text-slate-300 max-w-xl leading-relaxed font-medium">
-                The school day ends at 3. The professional workday ends at 6. We turn that unsupervised gap into <span className="text-brand-gold font-bold">the most productive part of the day.</span>
+                The school day ends at 3. The professional workday ends at 6. We turn that unsupervised gap into <span className="text-brand-gold font-bold">the most productive time for your children.</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-6 pt-4 items-start sm:items-center">
                 <Link
@@ -105,7 +105,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* The Problem Section - The Danger Zone */}
-      <section className="py-32 bg-brand-navy relative overflow-hidden">
+      <section className="py-20 bg-brand-navy relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-red-500/5 via-transparent to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="text-center mb-20 space-y-4">
@@ -137,7 +137,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* Smart Savings Section */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
+      <section className="py-20 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
@@ -208,7 +208,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-32 bg-white relative overflow-hidden">
+      <section className="py-20 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-beige/30 -skew-x-12 transform translate-x-1/4"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -270,7 +270,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* Programs Preview */}
-      <section className="py-32 bg-slate-50">
+      <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <span className="text-brand-gold font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Education Models</span>
@@ -308,7 +308,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-brand-navy py-32 relative overflow-hidden">
+      <section className="bg-brand-navy py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_120%,rgba(251,191,36,0.3),transparent_70%)]"></div>
         </div>
