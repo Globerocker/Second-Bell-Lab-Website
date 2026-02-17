@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '../types';
 
-const PhysicalDiscipline: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
+const PhysicalDiscipline: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero */}
@@ -57,9 +58,9 @@ const PhysicalDiscipline: React.FC<{setPage: (p:Page) => void}> = ({setPage}) =>
       <section className="bg-brand-navy py-20 text-center">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-white mb-8">Build a Strong Foundation</h2>
-          <button onClick={() => setPage(Page.PARENTS)} className="px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-lg hover:bg-white transition-all">
+          <Link to="/apply" className="px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-lg hover:bg-white transition-all inline-block">
             Join the Lab
-          </button>
+          </Link>
         </div>
       </section>
     </div>

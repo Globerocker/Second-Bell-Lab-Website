@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '../types';
 
-const FinancialLiteracy: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
+const FinancialLiteracy: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero */}
@@ -34,23 +35,23 @@ const FinancialLiteracy: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => 
       <section className="py-24 bg-brand-beige">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-             <div className="space-y-6">
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
-                   <h3 className="text-xl font-bold text-brand-navy">Compound Interest</h3>
-                   <p className="text-slate-600 mt-2">Visualizing how small savings grow over time. We use real market data simulations.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-                   <h3 className="text-xl font-bold text-brand-navy">Budgeting 101</h3>
-                   <p className="text-slate-600 mt-2">Needs vs. Wants. Creating a monthly budget for a hypothetical $50k salary.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-brand-gold">
-                   <h3 className="text-xl font-bold text-brand-navy">Assets vs. Liabilities</h3>
-                   <p className="text-slate-600 mt-2">Understanding the difference between buying a new phone vs. buying a stock.</p>
-                </div>
-             </div>
-             <div>
-                <img src="https://images.unsplash.com/photo-1611974765270-ca12586343bb?q=80&w=2070&auto=format&fit=crop" alt="Trading simulation" className="rounded-2xl shadow-2xl" />
-             </div>
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+                <h3 className="text-xl font-bold text-brand-navy">Compound Interest</h3>
+                <p className="text-slate-600 mt-2">Visualizing how small savings grow over time. We use real market data simulations.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                <h3 className="text-xl font-bold text-brand-navy">Budgeting 101</h3>
+                <p className="text-slate-600 mt-2">Needs vs. Wants. Creating a monthly budget for a hypothetical $50k salary.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-brand-gold">
+                <h3 className="text-xl font-bold text-brand-navy">Assets vs. Liabilities</h3>
+                <p className="text-slate-600 mt-2">Understanding the difference between buying a new phone vs. buying a stock.</p>
+              </div>
+            </div>
+            <div>
+              <img src="https://images.unsplash.com/photo-1611974765270-ca12586343bb?q=80&w=2070&auto=format&fit=crop" alt="Trading simulation" className="rounded-2xl shadow-2xl" />
+            </div>
           </div>
         </div>
       </section>
@@ -59,9 +60,9 @@ const FinancialLiteracy: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => 
       <section className="bg-brand-navy py-20 text-center">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-white mb-8">Prepare Them for Reality</h2>
-          <button onClick={() => setPage(Page.PARENTS)} className="px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-lg hover:bg-white transition-all">
+          <Link to="/apply" className="px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-lg hover:bg-white transition-all inline-block">
             Join the Lab
-          </button>
+          </Link>
         </div>
       </section>
     </div>

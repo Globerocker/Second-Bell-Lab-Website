@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '../types';
 
-const AcademicCompetence: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
+const AcademicCompetence: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero */}
@@ -34,32 +35,32 @@ const AcademicCompetence: React.FC<{setPage: (p:Page) => void}> = ({setPage}) =>
       <section className="py-24 bg-brand-beige">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-             <div>
-                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973&auto=format&fit=crop" alt="Studying" className="rounded-2xl shadow-2xl" />
-             </div>
-             <div className="space-y-8">
-                <div className="flex gap-4">
-                   <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-xl flex-shrink-0">1</div>
-                   <div>
-                      <h3 className="text-xl font-bold text-brand-navy mb-2">Triage System</h3>
-                      <p className="text-slate-600">Upon arrival, students list tasks. We prioritize by deadline and difficulty (Eat the Frog first).</p>
-                   </div>
+            <div>
+              <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1973&auto=format&fit=crop" alt="Studying" className="rounded-2xl shadow-2xl" />
+            </div>
+            <div className="space-y-8">
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-xl flex-shrink-0">1</div>
+                <div>
+                  <h3 className="text-xl font-bold text-brand-navy mb-2">Triage System</h3>
+                  <p className="text-slate-600">Upon arrival, students list tasks. We prioritize by deadline and difficulty (Eat the Frog first).</p>
                 </div>
-                <div className="flex gap-4">
-                   <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-xl flex-shrink-0">2</div>
-                   <div>
-                      <h3 className="text-xl font-bold text-brand-navy mb-2">Certified Support</h3>
-                      <p className="text-slate-600">Our floor is staffed by state-certified teachers, not just high school tutors.</p>
-                   </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-xl flex-shrink-0">2</div>
+                <div>
+                  <h3 className="text-xl font-bold text-brand-navy mb-2">Certified Support</h3>
+                  <p className="text-slate-600">Our floor is staffed by state-certified teachers, not just high school tutors.</p>
                 </div>
-                <div className="flex gap-4">
-                   <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-xl flex-shrink-0">3</div>
-                   <div>
-                      <h3 className="text-xl font-bold text-brand-navy mb-2">No Phones Policy</h3>
-                      <p className="text-slate-600">Phones are locked in the "Vault" during academic blocks. No exceptions.</p>
-                   </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-brand-navy text-white flex items-center justify-center font-bold text-xl flex-shrink-0">3</div>
+                <div>
+                  <h3 className="text-xl font-bold text-brand-navy mb-2">No Phones Policy</h3>
+                  <p className="text-slate-600">Phones are locked in the "Vault" during academic blocks. No exceptions.</p>
                 </div>
-             </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -68,9 +69,9 @@ const AcademicCompetence: React.FC<{setPage: (p:Page) => void}> = ({setPage}) =>
       <section className="bg-brand-navy py-20 text-center">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-white mb-8">Reclaim Your Evenings</h2>
-          <button onClick={() => setPage(Page.PARENTS)} className="px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-lg hover:bg-white transition-all">
+          <Link to="/apply" className="px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-lg hover:bg-white transition-all inline-block">
             Join the Lab
-          </button>
+          </Link>
         </div>
       </section>
     </div>

@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '../types';
 
-const Entrepreneurship: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
+const Entrepreneurship: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero */}

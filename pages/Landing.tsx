@@ -1,13 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '../types';
+import SEO from '../components/SEO';
 
 interface LandingProps {
-  setPage: (page: Page) => void;
 }
 
-const Landing: React.FC<LandingProps> = ({ setPage }) => {
+const Landing: React.FC<LandingProps> = () => {
   return (
     <div className="flex flex-col w-full overflow-hidden">
+      <SEO
+        title="Home"
+        description="Elite after-school development for the next generation of leaders. Phoenix HQ Arcadia."
+      />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center bg-brand-navy overflow-hidden">
         {/* Background Image with Overlay */}
@@ -36,20 +41,20 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
                 A premium after-school development concept designed to close the widening gap between public schooling and real-world skill development.
               </p>
               <div className="flex flex-col sm:flex-row gap-6 pt-4 items-start sm:items-center">
-                <button
-                  onClick={() => setPage(Page.PARENTS)}
-                  className="px-10 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.1em] rounded-xl hover:bg-white hover:text-brand-navy transition-all duration-500 shadow-[0_20px_40px_rgba(251,191,36,0.2)] transform hover:-translate-y-1 active:scale-95"
+                <Link
+                  to="/parents"
+                  className="px-10 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.1em] rounded-xl hover:bg-white hover:text-brand-navy transition-all duration-500 shadow-[0_20px_40px_rgba(251,191,36,0.2)] transform hover:-translate-y-1 active:scale-95 text-center flex items-center justify-center"
                   aria-label="Start Your Application"
                 >
                   Start Your Application
-                </button>
-                <button
-                  onClick={() => setPage(Page.FLYER)}
+                </Link>
+                <Link
+                  to="/flyer"
                   className="text-slate-400 text-xs hover:text-brand-gold flex items-center gap-3 transition-colors font-bold uppercase tracking-[0.2em] group"
                   aria-label="View Printable Brochure"
                 >
                   <i className="fa-solid fa-print group-hover:scale-110 transition-transform"></i> View Printable Brochure
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -133,13 +138,13 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
                 As a premium institution, Second Bell Lab™ is dedicated to fostering positive change through outcome-based education. We redefine student success by integrating academic support with the practical skills needed to survive and thrive in the real economy.
               </p>
               <div className="pt-4">
-                <button
-                  onClick={() => setPage(Page.ABOUT)}
+                <Link
+                  to="/about"
                   className="text-brand-navy font-black uppercase tracking-[0.2em] text-xs border-b-4 border-brand-navy hover:text-brand-gold hover:border-brand-gold transition-all pb-2 inline-flex items-center gap-3 active:translate-y-0.5"
                   aria-label="Learn more about our philosophy"
                 >
                   Explore The Mission <i className="fa-solid fa-arrow-right text-[10px]"></i>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -194,9 +199,9 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
                       {prog.desc}
                     </p>
                   </div>
-                  <button onClick={() => setPage(Page.PROGRAMS)} className="text-brand-navy font-black uppercase tracking-[0.2em] text-xs hover:text-brand-gold transition-all flex items-center gap-3 active:translate-x-1" aria-label={`View schedule for ${prog.title}`}>
+                  <Link to="/programs" className="text-brand-navy font-black uppercase tracking-[0.2em] text-xs hover:text-brand-gold transition-all flex items-center gap-3 active:translate-x-1" aria-label={`View schedule for ${prog.title}`}>
                     View Full Schedule <i className="fa-solid fa-chevron-right text-[10px]"></i>
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -215,13 +220,13 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
             Schedule a tour or chat with our AI admissions officer to see if your child is a good fit for Second Bell Lab™.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-8 items-center">
-            <button
-              onClick={() => setPage(Page.APPLICATION)}
+            <Link
+              to="/apply"
               className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-transparent border-2 border-white/20 text-white font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-white hover:text-brand-navy hover:border-white transition-all duration-500 w-full sm:w-auto active:translate-y-0.5"
               aria-label="Apply for Membership"
             >
               Apply for Membership
-            </button>
+            </Link>
           </div>
         </div>
       </section>

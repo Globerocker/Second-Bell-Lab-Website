@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
@@ -26,83 +27,67 @@ import Entrepreneurship from './pages/Entrepreneurship';
 import Blog from './pages/Blog';
 import BlogPostView from './pages/BlogPost';
 
-import { Page } from './types';
+// Scroll to top component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>(Page.HOME);
-  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
+  return (
+    <Router>
+      <ScrollToTop />
+      <AppContent />
+    </Router>
+  );
+};
 
-  // Helper to scroll top on page change
-  const setPage = (page: Page) => {
-    setCurrentPage(page);
-    window.scrollTo(0, 0);
-  };
-
-  const selectPost = (id: string) => {
-    setSelectedPostId(id);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case Page.HOME:
-        return <Landing setPage={setPage} />;
-      case Page.PARENTS:
-        return <Parents setPage={setPage} />;
-      case Page.INVESTORS:
-        return <Investors setPage={setPage} />;
-      case Page.ASSISTANT:
-        return <AiAssistant />;
-      case Page.PROGRAMS:
-        return <Programs />;
-      case Page.ADMISSIONS:
-        return <Admissions />;
-      case Page.APPLICATION:
-        return <ApplicationWizard />;
-      case Page.ABOUT:
-        return <About />;
-      case Page.LOCATIONS:
-        return <Locations />;
-      case Page.EVENTS:
-        return <Events />;
-      case Page.CAREERS:
-        return <Careers />;
-      case Page.CONTACT:
-        return <Contact />;
-      case Page.SECOND_CHANCE:
-        return <SecondChance setPage={setPage} />;
-      case Page.FLYER:
-        return <Flyer />;
-      // Pillars
-      case Page.PHYSICAL_DISCIPLINE:
-        return <PhysicalDiscipline setPage={setPage} />;
-      case Page.ACADEMIC_COMPETENCE:
-        return <AcademicCompetence setPage={setPage} />;
-      case Page.SOCIAL_SKILL:
-        return <SocialSkill setPage={setPage} />;
-      case Page.FINANCIAL_LITERACY:
-        return <FinancialLiteracy setPage={setPage} />;
-      case Page.ENTREPRENEURSHIP:
-        return <Entrepreneurship setPage={setPage} />;
-      // Blog
-      case Page.BLOG:
-        return <Blog setPage={setPage} selectPost={selectPost} />;
-      case Page.BLOG_POST:
-        return <BlogPostView postId={selectedPostId} setPage={setPage} selectPost={selectPost} />;
-      default:
-        return <Landing setPage={setPage} />;
-    }
-  };
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const isNoLayoutPage = location.pathname === '/apply' || location.pathname === '/flyer';
+  const isAssistantPage = location.pathname === '/chat';
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-900 bg-slate-50 relative selection:bg-brand-gold selection:text-brand-navy">
-      {/* Navbar not shown on Application Wizard or Flyer to keep focus */}
-      {currentPage !== Page.APPLICATION && currentPage !== Page.FLYER && <Navbar currentPage={currentPage} setPage={setPage} />}
-      
+      {!isNoLayoutPage && <Navbar />}
+
       <main className="flex-grow">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/parents" element={<Parents />} />
+          <Route path="/investors" element={<Investors />} />
+          <Route path="/chat" element={<AiAssistant />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/admissions" element={<Admissions />} />
+          <Route path="/apply" element={<ApplicationWizard />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/locations" element={<Locations />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/reintegration" element={<SecondChance />} />
+          <Route path="/flyer" element={<Flyer />} />
+
+          {/* Pillars */}
+          <Route path="/discipline" element={<PhysicalDiscipline />} />
+          <Route path="/academic" element={<AcademicCompetence />} />
+          <Route path="/social" element={<SocialSkill />} />
+          <Route path="/financial" element={<FinancialLiteracy />} />
+          <Route path="/entrepreneurship" element={<Entrepreneurship />} />
+
+          {/* Blog */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:postId" element={<BlogPostView />} />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
-      
-      {currentPage !== Page.ASSISTANT && currentPage !== Page.APPLICATION && currentPage !== Page.FLYER && <Footer setPage={setPage} />}
+
+      {!isAssistantPage && !isNoLayoutPage && <Footer />}
     </div>
   );
 };

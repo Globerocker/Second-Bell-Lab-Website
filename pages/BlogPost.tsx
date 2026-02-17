@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Page, BlogPost } from '../types';
+import { useParams, Link } from 'react-router-dom';
 import { BLOG_POSTS } from '../data/blogData';
 
 interface BlogPostProps {
-  postId: string | null;
-  setPage: (page: Page) => void;
-  selectPost: (id: string) => void;
 }
 
-const BlogPostView: React.FC<BlogPostProps> = ({ postId, setPage, selectPost }) => {
+const BlogPostView: React.FC<BlogPostProps> = () => {
+  const { postId } = useParams<{ postId: string }>();
   const [readingProgress, setReadingProgress] = useState(0);
 
   const post = BLOG_POSTS.find(p => p.id === postId);
@@ -33,7 +31,7 @@ const BlogPostView: React.FC<BlogPostProps> = ({ postId, setPage, selectPost }) 
     <div className="bg-white min-h-screen">
       {/* Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 z-50 bg-slate-100">
-        <div 
+        <div
           className="h-full bg-brand-gold transition-all duration-100 ease-out"
           style={{ width: `${readingProgress}%` }}
         ></div>
@@ -101,18 +99,18 @@ const BlogPostView: React.FC<BlogPostProps> = ({ postId, setPage, selectPost }) 
 
         {/* Author Bio Box */}
         <div className="mt-16 bg-brand-beige rounded-xl p-8 flex flex-col md:flex-row gap-6 items-center md:items-start">
-           <div className="w-20 h-20 bg-brand-navy rounded-full flex items-center justify-center text-white text-2xl font-heading font-bold flex-shrink-0">
-             {post.author.charAt(0)}
-           </div>
-           <div>
-             <h3 className="text-xl font-bold text-brand-navy mb-2">About {post.author}</h3>
-             <p className="text-slate-600 text-sm leading-relaxed mb-4">
-               {post.authorRole} at Second Bell Lab™. Passionate about education reform, developmental psychology, and preparing the next generation for a changing economy.
-             </p>
-             <button onClick={() => setPage(Page.ADMISSIONS)} className="text-brand-navy font-bold text-sm hover:text-brand-gold transition-colors">
-               Book a consultation with our team <i className="fa-solid fa-arrow-right ml-1"></i>
-             </button>
-           </div>
+          <div className="w-20 h-20 bg-brand-navy rounded-full flex items-center justify-center text-white text-2xl font-heading font-bold flex-shrink-0">
+            {post.author.charAt(0)}
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-brand-navy mb-2">About {post.author}</h3>
+            <p className="text-slate-600 text-sm leading-relaxed mb-4">
+              {post.authorRole} at Second Bell Lab™. Passionate about education reform, developmental psychology, and preparing the next generation for a changing economy.
+            </p>
+            <Link to="/admissions" className="text-brand-navy font-bold text-sm hover:text-brand-gold transition-colors">
+              Book a consultation with our team <i className="fa-solid fa-arrow-right ml-1"></i>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -123,10 +121,10 @@ const BlogPostView: React.FC<BlogPostProps> = ({ postId, setPage, selectPost }) 
             <h3 className="text-2xl font-bold text-brand-navy mb-10 text-center">Read Next</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {relatedPosts.map(p => (
-                <div 
-                  key={p.id} 
-                  onClick={() => { selectPost(p.id); window.scrollTo(0,0); }}
-                  className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer group hover:shadow-xl transition-all"
+                <Link
+                  key={p.id}
+                  to={`/blog/${p.id}`}
+                  className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer group hover:shadow-xl transition-all block"
                 >
                   <div className="h-48 overflow-hidden">
                     <img src={p.imageUrl} alt={p.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
@@ -135,7 +133,7 @@ const BlogPostView: React.FC<BlogPostProps> = ({ postId, setPage, selectPost }) 
                     <p className="text-xs font-bold text-brand-gold uppercase tracking-wider mb-2">{p.category}</p>
                     <h4 className="text-xl font-bold text-brand-navy mb-2 group-hover:text-brand-goldhover transition-colors">{p.title}</h4>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

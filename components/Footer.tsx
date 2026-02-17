@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Page } from '../types';
 
-const Footer: React.FC<{ setPage: (p: Page) => void }> = ({ setPage }) => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-brand-navy text-slate-300 py-16 border-t border-slate-700 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
@@ -30,17 +31,16 @@ const Footer: React.FC<{ setPage: (p: Page) => void }> = ({ setPage }) => {
           <div>
             <h3 className="text-white font-black text-lg mb-6 uppercase tracking-wider">Programs</h3>
             <ul className="space-y-3">
-              <li><button onClick={() => setPage(Page.PARENTS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Builders (11-14)</button></li>
-              <li><button onClick={() => setPage(Page.PARENTS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Creators (15-17)</button></li>
+              <li><Link to="/parents" className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Builders (11-14)</Link></li>
+              <li><Link to="/parents" className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Creators (15-17)</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-white font-black text-lg mb-6 uppercase tracking-wider">Corporate</h3>
             <ul className="space-y-3">
-              <li><button onClick={() => setPage(Page.BLOG)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Blog & Insights</button></li>
-              <li><button onClick={() => setPage(Page.CAREERS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Careers</button></li>
-              <li><button onClick={() => setPage(Page.FLYER)} className="text-brand-gold hover:text-white transition-colors flex items-center gap-2 font-bold"><i className="fa-solid fa-print text-xs"></i> Printable Brochure</button></li>
+              <li><Link to="/blog" className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Blog & Insights</Link></li>
+              <li><Link to="/careers" className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Careers</Link></li>
             </ul>
           </div>
         </div>
