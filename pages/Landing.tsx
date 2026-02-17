@@ -14,7 +14,7 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/90 to-transparent z-10"></div>
           <img
-            src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop"
+            src="/images/hero-lab.png"
             alt="Students learning in a modern environment"
             className="w-full h-full object-cover opacity-50 animate-fade-in"
           />
@@ -56,7 +56,7 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
             {/* Hero Image Card */}
             <div className="lg:col-span-5 relative hidden lg:block animate-fade-up delay-300">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-                <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=2070&auto=format&fit=crop" alt="Student studying" className="w-full h-auto object-cover transform scale-100 group-hover:scale-110 transition-transform duration-[2000ms]" />
+                <img src="/images/builders.png" alt="Student studying" className="w-full h-auto object-cover transform scale-100 group-hover:scale-110 transition-transform duration-[2000ms]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-10 translate-y-2 group-hover:translate-y-0 transition-transform">
                   <div className="bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-2xl">
@@ -112,7 +112,7 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
             <div className="order-2 lg:order-1 relative">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl group border-8 border-white">
                 <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-brand-navy/40 transition-colors z-10"></div>
-                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop" alt="Classroom environment" className="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-transform duration-1000" />
+                <img src="/images/location-phoenix.png" alt="Classroom environment" className="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-transform duration-1000" />
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white rounded-full flex items-center justify-center z-20 shadow-2xl group-hover:scale-110 transition-transform" aria-label="Play video">
                   <i className="fa-solid fa-play text-brand-navy text-3xl ml-1"></i>
                 </button>
@@ -176,8 +176,8 @@ const Landing: React.FC<LandingProps> = ({ setPage }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {[
-              { title: 'The Builders', age: '11-14', color: 'bg-brand-gold text-brand-navy', img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop', desc: 'Focused on foundational discipline, academic competence, and introduction to financial literacy. We build the habits that build the man or woman.' },
-              { title: 'The Creators', age: '15-17', color: 'bg-brand-navy text-white', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop', desc: 'Advanced leadership, entrepreneurship projects, and portfolio creation. Students solve real-world problems and prepare for the marketplace.' }
+              { title: 'The Builders', age: '11-14', color: 'bg-brand-gold text-brand-navy', img: '/images/builders.png', desc: 'Focused on foundational discipline, academic competence, and introduction to financial literacy. We build the habits that build the man or woman.' },
+              { title: 'The Creators', age: '15-17', color: 'bg-brand-navy text-white', img: '/images/creators.png', desc: 'Advanced leadership, entrepreneurship projects, and portfolio creation. Students solve real-world problems and prepare for the marketplace.' }
             ].map((prog, idx) => (
               <div key={idx} className="group relative overflow-hidden rounded-3xl shadow-2xl bg-white flex flex-col h-full border border-slate-100">
                 <div className="h-80 overflow-hidden relative">

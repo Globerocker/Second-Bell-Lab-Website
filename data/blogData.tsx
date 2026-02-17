@@ -3,11 +3,16 @@ import { BlogPost } from '../types';
 
 // Helper for generating text to simulate long reads
 const PlaceholderParagraph = () => (
+  <div className="space-y-4">
     <p>
-      In today's fast-paced educational landscape, the nuance of this issue is often lost. We must look deeper at the systemic causes and the individual effects. 
+      In today's fast-paced educational landscape, the nuance of this issue is often lost. We must look deeper at the systemic causes and the individual effects.
       Data from the last decade suggests a correlation that cannot be ignored. When we prioritize convenience over connection, the developmental cost is paid by the child.
-      However, the solution is not simply "more rules" or "more restrictions," but rather a fundamental shift in how we structure time, attention, and effort.
     </p>
+    <p>
+      The landscape of adolescent development has been terraformed by digital tools. What used to be "extracurricular" is now the "core" of their social and mental existence.
+      However, the solution is not simply "more rules" or "more restrictions," but rather a fundamental shift in how we structure time, attention, and effort to foster genuine competence.
+    </p>
+  </div>
 );
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -20,14 +25,14 @@ export const BLOG_POSTS: BlogPost[] = [
     authorRole: "Head of Curriculum",
     date: "Oct 12, 2023",
     readTime: "12 min read",
-    imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: "/images/blog-danger-zone.png",
     tags: ["Safety", "Development", "Time Management"],
     content: (
       <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
         <p className="text-xl font-light text-slate-600 border-l-4 border-brand-gold pl-4">
           There is a structural flaw in the modern economy: the school day was designed for an agrarian society, while the workday was designed for the industrial revolution. The result is a gaping 3-hour void that millions of teenagers fall into every single day.
         </p>
-        
+
         <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The "Latchkey" Myth vs. Modern Reality</h2>
         <p>
           In the 1980s, the "latchkey kid" was a symbol of independence. Gen X prides itself on having navigated afternoons alone, watching MTV and making microwave nachos. However, the environment has changed drastically. In 1990, an unsupervised child might watch TV or ride a bike. In 2024, an unsupervised child is plugged into a global algorithm designed by PhDs to hijack their dopamine receptors.
@@ -66,7 +71,7 @@ export const BLOG_POSTS: BlogPost[] = [
           This isn't just about grades. It's about mental health. Anxiety thrives in the void of structure. By providing a container for their afternoon, you aren't restricting their freedom; you are giving them the freedom to enjoy their evenings guilt-free.
         </p>
 
-        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop" alt="Focused work" className="w-full rounded-xl shadow-lg my-8" />
+        <img src="/images/builders.png" alt="Focused work" className="w-full rounded-xl shadow-lg my-8" />
 
         <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">Actionable Tips for Parents</h2>
         <ul className="space-y-6">
@@ -104,40 +109,40 @@ export const BLOG_POSTS: BlogPost[] = [
     authorRole: "Director of Operations",
     date: "Nov 01, 2023",
     readTime: "15 min read",
-    imageUrl: "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop",
+    imageUrl: "/images/blog-dojo.png",
     tags: ["Jiu-Jitsu", "Psychology", "Bullying"],
     content: (
       <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
         <p className="text-xl font-light text-slate-600">
-           Parents often recoil at the word "Combat." They imagine bruises, aggression, and violence. But the dojo is not a place of violence; it is a place of *order*.
+          Parents often recoil at the word "Combat." They imagine bruises, aggression, and violence. But the dojo is not a place of violence; it is a place of *order*.
         </p>
 
         <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The Paradox of Capable Violence</h2>
         <p>
-            Jordan Peterson famously noted, "A harmless man is not a good man. A good man is a very dangerous man who has that under voluntary control." This is the core philosophy of our Physical Discipline pillar.
+          Jordan Peterson famously noted, "A harmless man is not a good man. A good man is a very dangerous man who has that under voluntary control." This is the core philosophy of our Physical Discipline pillar.
         </p>
         <p>
-            Bullying often stems from insecurity and a need to dominate to feel safe. When a child learns Brazilian Jiu-Jitsu, they experience two profound things:
+          Bullying often stems from insecurity and a need to dominate to feel safe. When a child learns Brazilian Jiu-Jitsu, they experience two profound things:
         </p>
         <ol className="list-decimal pl-6 space-y-4 font-bold text-brand-navy">
-            <li><span className="font-normal text-slate-700">They realize how fragile they are (humility).</span></li>
-            <li><span className="font-normal text-slate-700">They realize they can survive discomfort (resilience).</span></li>
+          <li><span className="font-normal text-slate-700">They realize how fragile they are (humility).</span></li>
+          <li><span className="font-normal text-slate-700">They realize they can survive discomfort (resilience).</span></li>
         </ol>
 
         <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The Study Data</h2>
         <p>
-            A 2019 study published in the *Journal of Youth Adolescence* followed 400 youths in martial arts programs. It found a <strong>42% reduction in school altercations</strong> compared to the control group in team sports. Why?
+          A 2019 study published in the *Journal of Youth Adolescence* followed 400 youths in martial arts programs. It found a <strong>42% reduction in school altercations</strong> compared to the control group in team sports. Why?
         </p>
         <p>
-            Because the "fight" has already happened. A child who has sparred for 30 minutes has expelled their aggressive energy. They don't need to posture in the hallway because they know exactly where they stand in the hierarchy of competence.
+          Because the "fight" has already happened. A child who has sparred for 30 minutes has expelled their aggressive energy. They don't need to posture in the hallway because they know exactly where they stand in the hierarchy of competence.
         </p>
         <PlaceholderParagraph />
 
         <div className="bg-slate-100 p-8 rounded-xl border-l-4 border-brand-navy my-8">
-           <h3 className="text-xl font-bold text-brand-navy mb-4">For the "Troubled" Youth</h3>
-           <p>
-             For students in our Reintegration track, the mat offers something the street cannot: fair rules. In the street, violence is chaotic and unfair. In the dojo, if you tap out, the pain stops. This restoration of "fair consequence" is healing for minds traumatized by chaotic environments.
-           </p>
+          <h3 className="text-xl font-bold text-brand-navy mb-4">For the "Troubled" Youth</h3>
+          <p>
+            For students in our Reintegration track, the mat offers something the street cannot: fair rules. In the street, violence is chaotic and unfair. In the dojo, if you tap out, the pain stops. This restoration of "fair consequence" is healing for minds traumatized by chaotic environments.
+          </p>
         </div>
       </div>
     )
@@ -155,20 +160,20 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["Government", "Social Work", "Justice"],
     content: (
       <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
-         <p className="text-xl font-light text-slate-600">
-            The definition of insanity is doing the same thing and expecting different results. The current juvenile justice system is an insanity machine.
-         </p>
-         <p>
-            We take a kid who has behavioral issues, remove them from school, isolate them with other troubled kids, and expect them to return as model citizens. It doesn't work. Recidivism rates for juvenile detention centers hover around 70% within 3 years.
-         </p>
-         <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The Integration Model</h2>
-         <p>
-            Our Second Chance program does not isolate these students. After a probationary period, they are integrated into the general population of the Lab. They work alongside the "High Performers". 
-         </p>
-         <p>
-            This peer pressure is positive. When a student who has been in "the system" sees a peer obsessing over a coding project or a business plan, their horizon of possibility expands. "If he can do it, I can do it."
-         </p>
-         <PlaceholderParagraph />
+        <p className="text-xl font-light text-slate-600">
+          The definition of insanity is doing the same thing and expecting different results. The current juvenile justice system is an insanity machine.
+        </p>
+        <p>
+          We take a kid who has behavioral issues, remove them from school, isolate them with other troubled kids, and expect them to return as model citizens. It doesn't work. Recidivism rates for juvenile detention centers hover around 70% within 3 years.
+        </p>
+        <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">The Integration Model</h2>
+        <p>
+          Our Second Chance program does not isolate these students. After a probationary period, they are integrated into the general population of the Lab. They work alongside the "High Performers".
+        </p>
+        <p>
+          This peer pressure is positive. When a student who has been in "the system" sees a peer obsessing over a coding project or a business plan, their horizon of possibility expands. "If he can do it, I can do it."
+        </p>
+        <PlaceholderParagraph />
       </div>
     )
   },
@@ -185,7 +190,7 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["AI", "Career", "Soft Skills"],
     content: (
       <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
-         <p className="text-xl font-light text-slate-600">
+        <p className="text-xl font-light text-slate-600">
           The "Analyst" role is dying. Coding, copy editing, basic accounting, and data entry—the traditional proving grounds for fresh college graduates—are being absorbed by Large Language Models at a terrifying pace.
         </p>
 
@@ -199,11 +204,11 @@ export const BLOG_POSTS: BlogPost[] = [
         <PlaceholderParagraph />
 
         <div className="bg-slate-100 p-8 rounded-xl border-l-4 border-brand-navy my-8">
-           <h3 className="text-xl font-bold text-brand-navy mb-4">The "Human Premium"</h3>
-           <p className="italic mb-4">"In an age of artificial intelligence, the premium on emotional intelligence has never been higher."</p>
-           <p>
-             The skills that AI struggles with are high-context interaction, negotiation, conflict resolution, and complex ethical decision making. We call these "Soft Skills," but that is a misnomer. They are now the "Hard Skills" of survival.
-           </p>
+          <h3 className="text-xl font-bold text-brand-navy mb-4">The "Human Premium"</h3>
+          <p className="italic mb-4">"In an age of artificial intelligence, the premium on emotional intelligence has never been higher."</p>
+          <p>
+            The skills that AI struggles with are high-context interaction, negotiation, conflict resolution, and complex ethical decision making. We call these "Soft Skills," but that is a misnomer. They are now the "Hard Skills" of survival.
+          </p>
         </div>
 
         <h2 className="text-3xl font-heading font-bold text-brand-navy mt-8 mb-4">Rhetoric & Persuasion</h2>
@@ -286,7 +291,7 @@ export const BLOG_POSTS: BlogPost[] = [
     authorRole: "Head of Curriculum",
     date: "Aug 12, 2023",
     readTime: "7 min read",
-    imageUrl: "https://images.unsplash.com/photo-1491975474562-1f4e30bc9468?q=80&w=1888&auto=format&fit=crop",
+    imageUrl: "/images/blog-deep-work.png",
     tags: ["Study Skills", "Focus", "Productivity"],
     content: (
       <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
@@ -311,7 +316,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: (
       <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
         <p className="text-xl font-light text-slate-600">
-           "It takes a village." We all know the saying, but where is the village? It has been replaced by Uber drivers and iPads.
+          "It takes a village." We all know the saying, but where is the village? It has been replaced by Uber drivers and iPads.
         </p>
         <PlaceholderParagraph />
       </div>
