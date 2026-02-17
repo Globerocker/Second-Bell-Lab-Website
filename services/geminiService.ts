@@ -1,14 +1,24 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ChatMessage, ImageGenerationConfig } from "../types";
 
-// Helper to get API key securely
-const getApiKey = () => process.env.API_KEY || '';
+// Helper to get API key securely and safely for browser environments
+const getApiKey = () => {
+  try {
+    // Check if process is defined (node/build env)
+    if (typeof process !== 'undefined' && process.env) {
+      return process.env.API_KEY || '';
+    }
+    return '';
+  } catch (e) {
+    return '';
+  }
+};
 
 const SYSTEM_INSTRUCTION = `
-You are the AI Assistant for Second Bell Lab™, a premium after-school education center.
+You are the AI Assistant for Nano Banana (formerly Second Bell Lab), a premium after-school education center.
 Your goal is to assist both prospective Parents and Investors.
 
-Key Information about Second Bell Lab™:
+Key Information about Nano Banana:
 - Concept: Closes the gap between public schooling and real-world skills.
 - Model: Academic Support + Practical Life Skills + Physical Development + Supervision.
 - Locations: Initial launch in Phoenix, Arizona.
@@ -33,7 +43,9 @@ export const generateChatResponse = async (
   onStream: (chunk: string) => void
 ): Promise<{ text: string; groundingUrls?: Array<{ uri: string; title: string }> }> => {
   const apiKey = getApiKey();
-  if (!apiKey) throw new Error("API Key not found");
+  // We can't throw here if we want to avoid crashing the UI entirely, but the call will fail later.
+  // Best to let the UI handle the error if the key is missing.
+  if (!apiKey) console.warn("API Key is missing. Chat functionality will not work.");
 
   const ai = new GoogleGenAI({ apiKey });
 

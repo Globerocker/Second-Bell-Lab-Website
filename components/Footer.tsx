@@ -10,10 +10,13 @@ const Footer: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-2 pr-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center shadow-lg shadow-brand-gold/20">
-                <i className="fa-solid fa-bell text-brand-navy text-lg"></i>
+              <div className="w-10 h-10 bg-brand-gold rounded-lg flex items-center justify-center shadow-[2px_2px_0px_0px_white]">
+                 <svg viewBox="0 0 100 100" className="w-6 h-6 fill-brand-navy">
+                    <path d="M20,80 C10,10 85,10 85,30 C50,30 50,80 20,80 Z" />
+                    <circle cx="82" cy="22" r="6" className="fill-white" />
+                 </svg>
               </div>
-              <span className="font-heading font-bold text-2xl text-white tracking-tight">Second Bell Lab™</span>
+              <span className="font-heading font-black text-2xl text-white tracking-tight uppercase">Nano Banana</span>
             </div>
             <p className="text-slate-400 leading-relaxed max-w-md mb-8">
               Closing the widening gap between public schooling and real-world skill development. 
@@ -27,7 +30,7 @@ const Footer: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
           </div>
           
           <div>
-            <h3 className="text-white font-bold text-lg mb-6">Programs</h3>
+            <h3 className="text-white font-black text-lg mb-6 uppercase tracking-wider">Programs</h3>
             <ul className="space-y-3">
               <li><button onClick={() => setPage(Page.PARENTS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Builders (11-14)</button></li>
               <li><button onClick={() => setPage(Page.PARENTS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Creators (15-17)</button></li>
@@ -36,7 +39,7 @@ const Footer: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-6">Corporate</h3>
+            <h3 className="text-white font-black text-lg mb-6 uppercase tracking-wider">Corporate</h3>
             <ul className="space-y-3">
               <li><button onClick={() => setPage(Page.INVESTORS)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Investor Relations</button></li>
               <li><button onClick={() => setPage(Page.BLOG)} className="text-slate-400 hover:text-brand-gold transition-colors flex items-center gap-2"><i className="fa-solid fa-chevron-right text-xs"></i> Blog & Insights</button></li>
@@ -47,7 +50,7 @@ const Footer: React.FC<{setPage: (p:Page) => void}> = ({setPage}) => {
         </div>
         
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Second Bell Lab™. Phoenix, AZ. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Nano Banana Inc. Phoenix, AZ. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
              <a href="#" className="hover:text-white">Privacy Policy</a>
              <a href="#" className="hover:text-white">Terms of Service</a>

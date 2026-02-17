@@ -1,6 +1,6 @@
 {
-  "name": "Second Bell Lab™",
-  "description": "Premium after-school education and development concept designed to close the widening gap between public schooling and real-world skill development.",
+  "name": "Nano Banana",
+  "description": "Premium development concept designed to close the widening gap between public schooling and real-world skill development.",
   "requestFramePermissions": [
     "geolocation"
   ]
