@@ -116,8 +116,9 @@ const ApplicationWizard: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-2">First Name</label>
+                    <label htmlFor="parentFirstName" className="block text-xs font-bold text-slate-500 uppercase mb-2">First Name</label>
                     <input
+                      id="parentFirstName"
                       type="text"
                       value={formData.parentFirstName}
                       onChange={(e) => updateField('parentFirstName', e.target.value)}
@@ -126,8 +127,9 @@ const ApplicationWizard: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Last Name</label>
+                    <label htmlFor="parentLastName" className="block text-xs font-bold text-slate-500 uppercase mb-2">Last Name</label>
                     <input
+                      id="parentLastName"
                       type="text"
                       value={formData.parentLastName}
                       onChange={(e) => updateField('parentLastName', e.target.value)}
@@ -137,8 +139,9 @@ const ApplicationWizard: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Email Address</label>
+                  <label htmlFor="parentEmail" className="block text-xs font-bold text-slate-500 uppercase mb-2">Email Address</label>
                   <input
+                    id="parentEmail"
                     type="email"
                     value={formData.parentEmail}
                     onChange={(e) => updateField('parentEmail', e.target.value)}
@@ -147,8 +150,9 @@ const ApplicationWizard: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Phone Number</label>
+                  <label htmlFor="parentPhone" className="block text-xs font-bold text-slate-500 uppercase mb-2">Phone Number</label>
                   <input
+                    id="parentPhone"
                     type="tel"
                     value={formData.parentPhone}
                     onChange={(e) => updateField('parentPhone', e.target.value)}
@@ -171,8 +175,9 @@ const ApplicationWizard: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Student First Name</label>
+                    <label htmlFor="studentFirstName" className="block text-xs font-bold text-slate-500 uppercase mb-2">Student First Name</label>
                     <input
+                      id="studentFirstName"
                       type="text"
                       value={formData.studentFirstName}
                       onChange={(e) => updateField('studentFirstName', e.target.value)}
@@ -181,8 +186,9 @@ const ApplicationWizard: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Student Last Name</label>
+                    <label htmlFor="studentLastName" className="block text-xs font-bold text-slate-500 uppercase mb-2">Student Last Name</label>
                     <input
+                      id="studentLastName"
                       type="text"
                       value={formData.studentLastName}
                       onChange={(e) => updateField('studentLastName', e.target.value)}
@@ -192,8 +198,9 @@ const ApplicationWizard: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Date of Birth</label>
+                  <label htmlFor="studentDob" className="block text-xs font-bold text-slate-500 uppercase mb-2">Date of Birth</label>
                   <input
+                    id="studentDob"
                     type="date"
                     value={formData.studentDob}
                     onChange={(e) => updateField('studentDob', e.target.value)}
@@ -202,8 +209,9 @@ const ApplicationWizard: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Current School</label>
+                  <label htmlFor="studentSchool" className="block text-xs font-bold text-slate-500 uppercase mb-2">Current School</label>
                   <input
+                    id="studentSchool"
                     type="text"
                     value={formData.studentSchool}
                     onChange={(e) => updateField('studentSchool', e.target.value)}
@@ -377,8 +385,9 @@ const ApplicationWizard: React.FC = () => {
                   <h2 className="text-3xl font-black text-brand-navy mb-6">Statement</h2>
                 </div>
                 <div className="space-y-4">
-                  <label className="block text-sm font-bold text-brand-navy mb-2">Why do you want your child at Second Bell Lab?</label>
+                  <label htmlFor="parentStatement" className="block text-sm font-bold text-brand-navy mb-2">Why do you want your child at Second Bell Lab?</label>
                   <textarea
+                    id="parentStatement"
                     value={formData.parentStatement}
                     onChange={(e) => updateField('parentStatement', e.target.value)}
                     className="w-full p-5 border border-slate-200 rounded-2xl h-48 focus:ring-2 focus:ring-brand-gold outline-none resize-none transition-all placeholder:text-slate-300"

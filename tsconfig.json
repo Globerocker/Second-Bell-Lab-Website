@@ -10,9 +10,11 @@
       "DOM.Iterable"
     ],
     "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
     "types": [
-      "node",
-      "vite/client"
+      "node"
     ],
     "moduleResolution": "bundler",
     "isolatedModules": true,
@@ -26,5 +28,14 @@
     },
     "allowImportingTsExtensions": true,
     "noEmit": true
-  }
+  },
+  "include": [
+    "src",
+    "services",
+    "pages",
+    "components",
+    "types",
+    "index.tsx",
+    "vite-env.d.ts"
+  ]
 }
