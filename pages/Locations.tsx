@@ -53,6 +53,7 @@ const Locations: React.FC = () => {
                                 style={{ border: 0 }}
                                 loading="lazy"
                                 className="filter grayscale hover:grayscale-0 transition-all duration-700"
+                                title="Second Bell Lab Phoenix HQ Map"
                             ></iframe>
                         </div>
                     </div>
