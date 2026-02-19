@@ -30,7 +30,8 @@ const ApplicationWizard: React.FC = () => {
     specialWishes: '',
     location: 'Phoenix HQ (Arcadia)',
     parentStatement: '',
-    agreedAttendance: true, // Default to true as per simplification request
+    agreedCommitment: false, // Must be checked now
+    agreedAttendance: true,
     agreedNoPhone: true,
     agreedParentStrategy: true,
   });
@@ -120,7 +121,7 @@ const ApplicationWizard: React.FC = () => {
         {/* Minimal Header */}
         <div className="text-center mb-10 animate-fade-in">
           <Link to="/" className="inline-block mb-8">
-            <img src="/logo.svg" alt="Second Bell Lab" className="h-10 mx-auto" />
+            <img src="/favicon.svg" alt="Second Bell Lab" className="h-10 mx-auto" />
           </Link>
           <h1 className="text-4xl font-heading font-black text-brand-navy mb-2 tracking-tighter uppercase">Application Portal</h1>
           <p className="text-slate-500 font-bold text-[10px] uppercase tracking-[0.2em]">High-Performance Student Cohort • Fall 2025</p>
@@ -155,8 +156,11 @@ const ApplicationWizard: React.FC = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label htmlFor="studentDob" className="text-[10px] font-black uppercase text-slate-400 ml-2">Birth Date</label>
-                      <input id="studentDob" type="date" value={formData.studentDob} onChange={(e) => updateField('studentDob', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" required />
+                      <label htmlFor="studentDob" className="text-[10px] font-black uppercase text-slate-400 ml-2">Birth Date (Must be 8+ years old)</label>
+                      <input id="studentDob" type="date" value={formData.studentDob} onChange={(e) => updateField('studentDob', e.target.value)} className={`w-full p-5 bg-white border rounded-2xl outline-none font-medium ${formData.studentDob && new Date().getFullYear() - new Date(formData.studentDob).getFullYear() < 8 ? 'border-red-500' : 'border-slate-200'}`} required />
+                      {formData.studentDob && new Date().getFullYear() - new Date(formData.studentDob).getFullYear() < 8 && (
+                        <p className="text-red-500 text-[10px] font-bold ml-2">Student must be at least 8 years old.</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="studentGender" className="text-[10px] font-black uppercase text-slate-400 ml-2">Gender</label>
@@ -260,16 +264,21 @@ const ApplicationWizard: React.FC = () => {
 
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <label htmlFor="nutritionType" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Nutrition</label>
+                    <label htmlFor="nutritionType" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Nutrition Preference</label>
                     <select id="nutritionType" value={formData.nutritionType} onChange={(e) => updateField('nutritionType', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" title="Nutrition Type">
                       <option value="Standard">Standard</option>
                       <option value="Vegan">Vegan</option>
+                      <option value="Vegetarian">Vegetarian</option>
                       <option value="Kosher">Kosher</option>
                       <option value="Halal">Halal</option>
                       <option value="Gluten-Free">Gluten-Free</option>
+                      <option value="Keto">Keto</option>
                     </select>
                   </div>
-                  <input type="text" placeholder="Any allergies?" value={formData.allergies} onChange={(e) => updateField('allergies', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" />
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Allergies / Restrictions</label>
+                    <input type="text" placeholder="e.g. Peanuts, Shellfish, Lactose..." value={formData.allergies} onChange={(e) => updateField('allergies', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" />
+                  </div>
                 </div>
 
                 <div className="flex justify-between pt-8">
@@ -291,16 +300,32 @@ const ApplicationWizard: React.FC = () => {
 
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 space-y-4">
                   <h4 className="text-[10px] font-black text-brand-navy uppercase tracking-widest mb-4">The Partnership Terms</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed font-bold">1. Mandatory daily attendance (Mon-Fri).<br />2. 100% "No Device" policy during Lab hours.<br />3. Commitment to quarterly strategy sessions.</p>
-                  <div className="pt-4 flex items-center gap-3 text-brand-navy">
-                    <div className="w-5 h-5 bg-black text-white flex items-center justify-center rounded-sm text-[10px]"><i className="fa-solid fa-check"></i></div>
+                  <p className="text-xs text-slate-500 leading-relaxed font-bold">
+                    1. Mandatory daily attendance (Mon-Fri).<br />
+                    2. 100% "No Device" policy during Lab hours.<br />
+                    3. Commitment to quarterly strategy sessions.
+                  </p>
+                  <label className="pt-4 flex items-center gap-3 text-brand-navy cursor-pointer group">
+                    <div className={`w-6 h-6 border-2 rounded-lg flex items-center justify-center transition-all ${formData.agreedCommitment ? 'bg-brand-navy border-brand-navy text-white' : 'bg-white border-slate-200 group-hover:border-brand-gold'}`}>
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        checked={formData.agreedCommitment}
+                        onChange={(e) => updateField('agreedCommitment', e.target.checked)}
+                      />
+                      {formData.agreedCommitment && <i className="fa-solid fa-check text-xs"></i>}
+                    </div>
                     <span className="text-[10px] font-black uppercase tracking-widest">I commit to these standards.</span>
-                  </div>
+                  </label>
                 </div>
 
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(4)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  <button type="submit" className="px-12 py-6 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-navy hover:text-white transition-all shadow-2xl active:scale-95">
+                  <button
+                    type="submit"
+                    className={`px-12 py-6 font-black uppercase tracking-[0.2em] text-xs rounded-2xl transition-all shadow-2xl active:scale-95 ${formData.agreedCommitment ? 'bg-brand-gold text-brand-navy hover:bg-brand-navy hover:text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
+                    disabled={!formData.agreedCommitment}
+                  >
                     Submit Application
                   </button>
                 </div>

@@ -25,7 +25,7 @@ const Programs: React.FC = () => {
       </div>
 
       {/* The Two Tracks */}
-      <section className="py-24 max-w-7xl mx-auto px-4">
+      <section className="py-32 max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="bg-white/80 backdrop-blur-xl p-12 rounded-[2.5rem] shadow-2xl border border-white/40 relative overflow-hidden group hover:-translate-y-4 transition-all duration-700">
             <div className="absolute -top-10 -right-10 w-48 h-48 bg-brand-navy/5 rounded-full blur-3xl group-hover:bg-brand-navy/10 transition-colors"></div>
@@ -86,7 +86,7 @@ const Programs: React.FC = () => {
       </section>
 
       {/* Deep Dive Pillars */}
-      <section className="bg-brand-beige py-24">
+      <section className="bg-brand-beige py-32">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-black uppercase text-brand-navy">The 5 Core Pillars in Depth</h2>
@@ -134,7 +134,7 @@ const Programs: React.FC = () => {
       </section>
 
       {/* Schedule Component */}
-      <section className="py-24 max-w-7xl mx-auto px-4">
+      <section className="py-32 max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-black uppercase text-brand-navy text-center mb-8">Weekly Rhythm</h2>
         <ScheduleViewer />
       </section>

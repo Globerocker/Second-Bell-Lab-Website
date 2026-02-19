@@ -22,6 +22,9 @@ const ApplicationWizard = lazy(() => import('./pages/ApplicationWizard'));
 const SecondChance = lazy(() => import('./pages/SecondChance'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPostView = lazy(() => import('./pages/BlogPost'));
+const Imprint = lazy(() => import('./pages/Imprint'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -83,6 +86,9 @@ const AppContent: React.FC = () => {
             {/* Blog */}
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:postId" element={<BlogPostView />} />
+            <Route path="/imprint" element={<Imprint />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />

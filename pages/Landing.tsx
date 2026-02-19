@@ -82,7 +82,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* Feature Icons Section - Overlap */}
-      <section className="relative z-30 -mt-20 px-4">
+      <section className="relative z-30 -mt-12 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             { icon: 'fa-graduation-cap', title: 'Academic Support', desc: 'Led by state-certified educators. Homework completion and exam prep so family time remains family time.', border: 'border-brand-gold' },
@@ -105,7 +105,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* The Problem Section - The Danger Zone */}
-      <section className="py-20 bg-brand-navy relative overflow-hidden">
+      <section className="py-32 bg-brand-navy relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-red-500/5 via-transparent to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="text-center mb-20 space-y-4">
@@ -137,7 +137,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* Smart Savings Section */}
-      <section className="py-20 bg-slate-50 relative overflow-hidden">
+      <section className="py-32 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
@@ -208,7 +208,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      <section className="py-32 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-beige/30 -skew-x-12 transform translate-x-1/4"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -270,7 +270,7 @@ const Landing: React.FC<LandingProps> = () => {
       </section>
 
       {/* Programs Preview */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <span className="text-brand-gold font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Education Models</span>
@@ -320,11 +320,20 @@ const Landing: React.FC<LandingProps> = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-8 items-center">
             <Link
               to="/apply"
-              className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-transparent border-2 border-white/20 text-white font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-white hover:text-brand-navy hover:border-white transition-all duration-500 w-full sm:w-auto active:translate-y-0.5"
+              className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-white hover:text-brand-navy transition-all duration-500 w-full sm:w-auto active:translate-y-0.5 shadow-xl"
               aria-label="Apply for Membership"
             >
               Apply for Membership
             </Link>
+            <a
+              href="https://meetings.hubspot.com/secondbelllab"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-transparent border-2 border-white/20 text-white font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-white hover:text-brand-navy hover:border-white transition-all duration-500 w-full sm:w-auto active:translate-y-0.5"
+              aria-label="Schedule a Tour"
+            >
+              Schedule a Tour
+            </a>
           </div>
         </div>
       </section>

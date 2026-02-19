@@ -46,11 +46,11 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Second Bell Lab Inc. Phoenix, AZ. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Second Bell Lab LLC. Phoenix, AZ. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
-            <a href="#" className="hover:text-white">Code of Conduct</a>
+            <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-white">Terms of Service</Link>
+            <Link to="/imprint" className="hover:text-white">Imprint</Link>
           </div>
         </div>
       </div>

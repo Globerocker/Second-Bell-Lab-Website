@@ -20,7 +20,7 @@ const Admissions: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 py-32">
         {/* Process Steps */}
         <div className="mb-32">
           <h2 className="text-3xl font-black uppercase text-brand-navy mb-12 text-center tracking-tight">The Selection Process</h2>

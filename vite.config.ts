@@ -9,7 +9,8 @@ export default defineConfig(({ mode }) => {
     '/', '/parents', '/investors', '/chat', '/programs', '/admissions',
     '/apply', '/about', '/locations', '/events', '/careers', '/contact',
     '/reintegration', '/flyer', '/discipline', '/academic', '/social',
-    '/financial', '/entrepreneurship', '/blog'
+    '/financial', '/entrepreneurship', '/blog', '/imprint', '/privacy',
+    '/terms'
   ];
 
   return {

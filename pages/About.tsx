@@ -17,7 +17,7 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 py-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <img src="https://images.unsplash.com/photo-1577896334614-201b31d50dc5?q=80&w=2070&auto=format&fit=crop" alt="Founder" className="rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" />
@@ -30,7 +30,7 @@ const About: React.FC = () => {
             <p className="text-slate-600 mb-4 leading-relaxed">
               We asked a simple question: <strong>"What if the after-school hours were the most productive part of the day?"</strong>
             </p>
-            <p className="text-slate-600 mb-6 leading-relaxed">
+            <p className="text-slate-600 mb-4 leading-relaxed">
               Today, we operate premier facilities that function as a hybrid between a library, a gymnasium, and a startup incubator. We are raising the next generation of leaders.
             </p>
             <div className="p-6 bg-brand-navy text-white rounded-xl italic">
@@ -41,7 +41,7 @@ const About: React.FC = () => {
       </div>
 
       {/* Leadership */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-32">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-brand-navy text-center mb-12">Leadership Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
