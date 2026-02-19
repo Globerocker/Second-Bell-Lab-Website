@@ -144,16 +144,16 @@ const Landing: React.FC<LandingProps> = () => {
               <div>
                 <span className="text-brand-navy font-black tracking-[0.4em] uppercase text-xs mb-4 block">Smart Economics</span>
                 <h2 className="text-5xl md:text-7xl font-black text-brand-navy uppercase tracking-tighter leading-none">
-                  A Fractional <br /><span className="text-brand-gold italic">Success Stack.</span>
+                  Potential <br /><span className="text-brand-gold italic">Monthly Savings.</span>
                 </h2>
               </div>
               <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                To replicate the Lab Experience on your own, you would need to manage five different vendors and spend thousands more per month. We consolidated the high-performance life into a single membership.
+                Our model consolidates the essential "Success Stack" for your child. To replicate the Lab experience through individual vendors, you would invest thousands more every month.
               </p>
 
               <div className="space-y-4">
                 {[
-                  { label: 'Private Tutor / Academic Center', cost: '$400/mo' },
+                  { label: 'Private Tutor / Academic center', cost: '$400/mo' },
                   { label: 'Kids Fitness / Gym Membership', cost: '$150/mo' },
                   { label: 'Reliable Supervision / Nanny', cost: '$1,200/mo' },
                   { label: 'Health-Focused Meals / Snacks', cost: '$300/mo' },
@@ -165,7 +165,7 @@ const Landing: React.FC<LandingProps> = () => {
                   </div>
                 ))}
                 <div className="flex justify-between items-center pt-6">
-                  <span className="text-brand-navy font-black text-2xl uppercase tracking-tighter">Total Market Value</span>
+                  <span className="text-brand-navy font-black text-2xl uppercase tracking-tighter">Market Value Replaced</span>
                   <span className="text-brand-navy font-black text-2xl">$2,550+/mo</span>
                 </div>
               </div>
@@ -306,6 +306,65 @@ const Landing: React.FC<LandingProps> = () => {
           </div>
         </div>
       </section>
+      {/* Pricing Section */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <span className="text-brand-navy font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Membership Tiers</span>
+            <h2 className="text-5xl font-black uppercase text-brand-navy tracking-tight leading-none">Transparent <br /><span className="text-brand-gold italic">Pricing.</span></h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Regular Plan */}
+            <div className="bg-slate-50 p-12 rounded-[2.5rem] border border-slate-200 flex flex-col justify-between hover:shadow-2xl transition-all h-full">
+              <div>
+                <h3 className="text-2xl font-black uppercase text-brand-navy mb-2">Standard Membership</h3>
+                <p className="text-slate-500 text-sm mb-8 font-medium">Coming 2026 • Full Access</p>
+                <div className="flex items-baseline gap-1 mb-8">
+                  <span className="text-4xl font-black text-brand-navy">$1,450</span>
+                  <span className="text-slate-400 font-bold text-sm">/mo</span>
+                </div>
+                <ul className="space-y-4 mb-10">
+                  {['Full 3-6 PM Program', 'All Academic Support', 'Physical Discipline Training', 'Daily Healthy Nutrition'].map((i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-600 text-sm font-medium">
+                      <i className="fa-solid fa-check text-brand-gold"></i> {i}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <button className="w-full py-4 border-2 border-brand-navy text-brand-navy font-black uppercase text-xs tracking-widest rounded-xl hover:bg-brand-navy hover:text-white transition-all cursor-not-allowed opacity-50">
+                Join Waitlist
+              </button>
+            </div>
+
+            {/* Founding Plan */}
+            <div className="bg-brand-navy p-12 rounded-[2.5rem] border border-brand-gold/30 flex flex-col justify-between relative shadow-2xl scale-105 z-20 h-full">
+              <div className="absolute top-6 right-8 bg-brand-gold text-brand-navy text-[8px] font-black uppercase px-3 py-1 rounded-full tracking-widest animate-pulse">
+                Most Popular
+              </div>
+              <div>
+                <h3 className="text-2xl font-black uppercase text-white mb-2">Founding Member</h3>
+                <p className="text-brand-gold text-sm mb-8 font-black uppercase tracking-widest italic">Limited to First 25 Students</p>
+                <div className="flex items-baseline gap-1 mb-8">
+                  <span className="text-4xl font-black text-white">$1,290</span>
+                  <span className="text-slate-400 font-bold text-sm">/mo</span>
+                </div>
+                <ul className="space-y-4 mb-10">
+                  {['Lifetime 10% Discount', 'All Standard Program Specs', 'Quarterly Strategy Sessions', 'Founding Member Jacket'].map((i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
+                      <i className="fa-solid fa-check text-brand-gold"></i> {i}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link to="/apply" className="w-full py-4 bg-brand-gold text-brand-navy font-black uppercase text-xs tracking-widest rounded-xl hover:bg-white transition-all text-center">
+                Lock In Special Rate
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Call to Action */}
       <section className="bg-brand-navy py-20 relative overflow-hidden">
