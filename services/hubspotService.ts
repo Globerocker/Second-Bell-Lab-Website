@@ -27,6 +27,7 @@ export interface LeadData {
     specialWishes: string;
     preferredLocation: string;
     parentStatement: string;
+    lastStepCompleted?: string;
 }
 
 export const hubspotService = {
@@ -34,7 +35,7 @@ export const hubspotService = {
      * Submit lead to HubSpot via Forms API
      * This is preferred for frontend to associate sessions/cookies.
      */
-    submitLead: async (data: LeadData, formId: string) => {
+    submitLead: async (data: LeadData, formId: string, status: 'Partial' | 'Submitted' = 'Submitted') => {
         if (!PORTAL_ID || !formId) {
             console.warn('HubSpot Portal ID or Form ID missing.');
             return;
@@ -70,6 +71,8 @@ export const hubspotService = {
                 { name: 'special_wishes', value: data.specialWishes },
                 { name: 'preferred_location', value: data.preferredLocation },
                 { name: 'parent_statement', value: data.parentStatement },
+                { name: 'application_status', value: status },
+                { name: 'last_step_completed', value: data.lastStepCompleted || '1' }
             ],
             context: {
                 hutk: hubspotutk,

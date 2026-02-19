@@ -15,6 +15,9 @@ const ApplicationWizard: React.FC = () => {
     studentFirstName: '',
     studentLastName: '',
     studentDob: '',
+    dobDay: '',
+    dobMonth: '',
+    dobYear: '',
     studentGender: '',
     studentSchool: '',
     studentInterests: [] as string[],
@@ -36,8 +39,51 @@ const ApplicationWizard: React.FC = () => {
     agreedParentStrategy: true,
   });
 
+  const [isPartialCaptured, setIsPartialCaptured] = useState(false);
+
+  // Time options for curated select
+  const timeOptions = [
+    '3:00 PM', '3:15 PM', '3:30 PM', '3:45 PM',
+    '4:00 PM', '4:15 PM', '4:30 PM', '4:45 PM',
+    '5:00 PM', '5:15 PM', '5:30 PM', '5:45 PM',
+    '6:00 PM', '6:15 PM', '6:30 PM'
+  ];
+
+  // Sync composite DOB
+  useEffect(() => {
+    if (formData.dobDay && formData.dobMonth && formData.dobYear) {
+      const yearStr = formData.dobYear.length === 2 ? `20${formData.dobYear}` : formData.dobYear;
+      setFormData(prev => ({
+        ...prev,
+        studentDob: `${yearStr}-${formData.dobMonth.padStart(2, '0')}-${formData.dobDay.padStart(2, '0')}`
+      }));
+    }
+  }, [formData.dobDay, formData.dobMonth, formData.dobYear]);
+
   const updateField = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handlePartialCapture = async (nextStep: number) => {
+    if (formData.parentEmail && formData.parentFirstName) {
+      try {
+        const HUB_FORM_ID = '51085955';
+        await hubspotService.submitLead({
+          ...formData,
+          email: formData.parentEmail,
+          firstName: formData.parentFirstName,
+          lastName: formData.parentLastName,
+          phone: formData.parentPhone,
+          studentName: `${formData.studentFirstName} ${formData.studentLastName}`,
+          lastStepCompleted: (nextStep - 1).toString()
+        } as any, HUB_FORM_ID, 'Partial');
+        setIsPartialCaptured(true);
+      } catch (err) {
+        console.error('Partial Capture Error:', err);
+      }
+    }
+    setStep(nextStep);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const toggleInterest = (interest: string) => {
@@ -59,7 +105,7 @@ const ApplicationWizard: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const HUB_FORM_ID = '51085955'; // Using the portal ID provided earlier as a fallback or if this is the form ID
+    const HUB_FORM_ID = '51085955';
 
     try {
       await hubspotService.submitLead({
@@ -84,7 +130,7 @@ const ApplicationWizard: React.FC = () => {
         specialWishes: formData.specialWishes,
         preferredLocation: formData.location,
         parentStatement: formData.parentStatement
-      }, HUB_FORM_ID);
+      }, HUB_FORM_ID, 'Submitted');
 
       // Webhook fallback
       await fetch('https://n8n.secondbelllab.com/webhook/application', {
@@ -155,14 +201,18 @@ const ApplicationWizard: React.FC = () => {
                     <input type="text" placeholder="Student Last Name" value={formData.studentLastName} onChange={(e) => updateField('studentLastName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label htmlFor="studentDob" className="text-[10px] font-black uppercase text-slate-400 ml-2">Birth Date (Must be 8+ years old)</label>
-                      <input id="studentDob" type="date" value={formData.studentDob} onChange={(e) => updateField('studentDob', e.target.value)} className={`w-full p-5 bg-white border rounded-2xl outline-none font-medium ${formData.studentDob && new Date().getFullYear() - new Date(formData.studentDob).getFullYear() < 8 ? 'border-red-500' : 'border-slate-200'}`} required />
+                    <div className="space-y-4">
+                      <label className="text-[10px] font-black uppercase text-slate-400 ml-2">Birth Date (Must be 8+ years old)</label>
+                      <div className="flex gap-2">
+                        <input type="text" placeholder="DD" value={formData.dobDay} onChange={(e) => updateField('dobDay', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-16 p-4 bg-white border border-slate-200 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none" required />
+                        <input type="text" placeholder="MM" value={formData.dobMonth} onChange={(e) => updateField('dobMonth', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-16 p-4 bg-white border border-slate-200 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none" required />
+                        <input type="text" placeholder="YYYY" value={formData.dobYear} onChange={(e) => updateField('dobYear', e.target.value.replace(/\D/g, '').slice(0, 4))} className="flex-grow p-4 bg-white border border-slate-200 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none" required />
+                      </div>
                       {formData.studentDob && new Date().getFullYear() - new Date(formData.studentDob).getFullYear() < 8 && (
                         <p className="text-red-500 text-[10px] font-bold ml-2">Student must be at least 8 years old.</p>
                       )}
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                       <label htmlFor="studentGender" className="text-[10px] font-black uppercase text-slate-400 ml-2">Gender</label>
                       <select id="studentGender" value={formData.studentGender} onChange={(e) => updateField('studentGender', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" required title="Student Gender">
                         <option value="">Select Gender</option>
@@ -174,7 +224,7 @@ const ApplicationWizard: React.FC = () => {
                 </section>
 
                 <div className="flex justify-end pt-8">
-                  <button type="button" onClick={() => setStep(2)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
+                  <button type="button" onClick={() => handlePartialCapture(2)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
                     Next Phase <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                   </button>
                 </div>
@@ -207,6 +257,9 @@ const ApplicationWizard: React.FC = () => {
 
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(1)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
+                  {formData.academicStanding && (
+                    <button type="button" onClick={() => handlePartialCapture(3)} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest text-[10px] rounded-xl">Next</button>
+                  )}
                 </div>
               </div>
             )}
@@ -232,7 +285,7 @@ const ApplicationWizard: React.FC = () => {
 
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(2)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={() => setStep(4)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
+                  <button type="button" onClick={() => handlePartialCapture(4)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
                     Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                   </button>
                 </div>
@@ -257,7 +310,10 @@ const ApplicationWizard: React.FC = () => {
                   {formData.pickupType && (
                     <div className="animate-fade-in">
                       <label htmlFor="pickupTime" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">{formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'}</label>
-                      <input id="pickupTime" type="time" value={formData.pickupType === 'pickup' ? formData.pickupTime : formData.parentWorkUntil} onChange={(e) => updateField(formData.pickupType === 'pickup' ? 'pickupTime' : 'parentWorkUntil', e.target.value)} className="w-full mt-2 p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" required title={formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'} />
+                      <select id="pickupTime" value={formData.pickupType === 'pickup' ? formData.pickupTime : formData.parentWorkUntil} onChange={(e) => updateField(formData.pickupType === 'pickup' ? 'pickupTime' : 'parentWorkUntil', e.target.value)} className="w-full mt-2 p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none appearance-none" required title={formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'}>
+                        <option value="">Select Time</option>
+                        {timeOptions.map(t => <option key={t} value={t}>{t}</option>)}
+                      </select>
                     </div>
                   )}
                 </div>
@@ -283,7 +339,7 @@ const ApplicationWizard: React.FC = () => {
 
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(3)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={() => { if (formData.pickupType) setStep(5); }} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group" disabled={!formData.pickupType}>
+                  <button type="button" onClick={() => { if (formData.pickupType) handlePartialCapture(5); }} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group" disabled={!formData.pickupType}>
                     Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                   </button>
                 </div>
