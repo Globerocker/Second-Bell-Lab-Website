@@ -25,6 +25,7 @@ const BlogPostView = lazy(() => import('./pages/BlogPost'));
 const Imprint = lazy(() => import('./pages/Imprint'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const Pricing = lazy(() => import('./pages/Pricing'));
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -74,6 +75,7 @@ const AppContent: React.FC = () => {
             <Route path="/chat" element={<AiAssistant />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/admissions" element={<Admissions />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="/apply" element={<ApplicationWizard />} />
             <Route path="/about" element={<About />} />
             <Route path="/locations" element={<Locations />} />

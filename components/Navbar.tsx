@@ -21,6 +21,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     { path: '/locations', label: 'Locations' },
     { path: '/blog', label: 'Blog' },
     { path: '/about', label: 'About' },
+    { path: '/pricing', label: 'Pricing' },
   ];
 
   return (
