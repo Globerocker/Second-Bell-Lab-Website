@@ -63,7 +63,7 @@ const ApplicationWizard: React.FC = () => {
   const handlePartialCapture = async (nextStep: number) => {
     if (formData.parentEmail && formData.parentFirstName) {
       try {
-        const HUB_FORM_ID = '51085955';
+        const HUB_FORM_ID = import.meta.env.VITE_HUBSPOT_FORM_ID;
         await hubspotService.submitLead({
           ...formData,
           email: formData.parentEmail,
@@ -93,7 +93,7 @@ const ApplicationWizard: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const HUB_FORM_ID = '51085955';
+    const HUB_FORM_ID = import.meta.env.VITE_HUBSPOT_FORM_ID;
 
     try {
       await hubspotService.submitLead({
@@ -122,7 +122,7 @@ const ApplicationWizard: React.FC = () => {
       }, HUB_FORM_ID, 'Submitted');
 
       // Webhook fallback
-      await fetch('https://n8n.secondbelllab.com/webhook/application', {
+      await fetch(import.meta.env.VITE_N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, submittedAt: new Date().toISOString() }),
