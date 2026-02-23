@@ -83,98 +83,95 @@ const Pricing: React.FC = () => {
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(251,191,36,0.3),transparent_70%)]"></div>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-20">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-16">
                         <span className="text-brand-gold font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Membership & Access</span>
-                        <h2 className="text-5xl border-transparent font-black uppercase text-white tracking-tight leading-none">Find Your <span className="text-brand-gold italic">Fit.</span></h2>
+                        <h2 className="text-5xl font-black uppercase text-white tracking-tight leading-none">Find Your <span className="text-brand-gold italic">Fit.</span></h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                        {/* Flexible Passes */}
-                        <div className="bg-white/5 border border-white/10 backdrop-blur-md p-10 rounded-[2.5rem] flex flex-col justify-between h-full group hover:bg-white/10 transition-all">
-                            <div>
-                                <h3 className="text-xl font-black uppercase text-brand-gold mb-6 tracking-widest">Flexible Passes</h3>
-                                <div className="space-y-6">
-                                    {[
-                                        { label: 'Single Day Pass', price: '$89', detail: 'Elite test drive' },
-                                        { label: '10-Day Lab Pass', price: '$790', detail: '$79 per session' },
-                                        { label: '15-Day Lab Pass', price: '$1,035', detail: '$69 per session' }
-                                    ].map((pass, i) => (
-                                        <div key={i} className="flex justify-between items-center border-b border-white/10 pb-4 group-hover:border-brand-gold/30 transition-colors">
-                                            <div className="flex flex-col">
-                                                <span className="text-white font-bold text-sm uppercase tracking-tight">{pass.label}</span>
-                                                <span className="text-slate-400 text-[10px] uppercase font-black tracking-widest leading-none mt-1">{pass.detail}</span>
-                                            </div>
-                                            <span className="text-brand-gold font-black text-xl tracking-tighter">{pass.price}</span>
-                                        </div>
-                                    ))}
+                    <div className="flex flex-col gap-6">
+                        {/* STARTER */}
+                        <div className="bg-white p-8 rounded-[2rem] border-4 border-white shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all hover:scale-[1.02] group">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <span className="text-slate-400 font-black uppercase tracking-widest text-[10px] mb-2 block">Starter</span>
+                                    <h3 className="text-3xl font-black text-brand-navy uppercase tracking-tight">10 Visits</h3>
                                 </div>
-                                <div className="mt-8 p-6 bg-brand-navy border border-brand-gold/20 rounded-2xl">
-                                    <p className="text-[10px] text-slate-400 font-bold uppercase leading-relaxed">
-                                        Perfect for alternating schedules or testing the Lab environment before full commitment.
-                                    </p>
+                                <div className="text-right">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-4xl font-black text-brand-navy">$690</span>
+                                        <span className="text-slate-400 font-bold text-xs uppercase">/mo</span>
+                                    </div>
                                 </div>
                             </div>
-                            <Link to="/apply" className="mt-10 w-full py-4 border-2 border-brand-gold text-brand-gold font-black uppercase text-[10px] tracking-[0.3em] rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all text-center">
-                                Request Pass
+                        </div>
+
+                        {/* CORE */}
+                        <div className="bg-white p-8 rounded-[2rem] border-4 border-brand-gold shadow-[0_20px_60px_rgba(251,191,36,0.2)] transition-all hover:scale-[1.02] relative group">
+                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-16 bg-brand-gold rounded-r-full"></div>
+                            <div className="flex justify-between items-start pl-4">
+                                <div>
+                                    <span className="text-brand-navy font-black uppercase tracking-widest text-[10px] mb-2 block">Core</span>
+                                    <h3 className="text-3xl font-black text-brand-navy uppercase tracking-tight">15 Visits</h3>
+                                </div>
+                                <div className="text-right">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-4xl font-black text-brand-navy">$890</span>
+                                        <span className="text-slate-400 font-bold text-xs uppercase">/mo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ELITE */}
+                        <div className="bg-slate-900 p-8 rounded-[2rem] border-2 border-brand-gold shadow-[0_20px_80px_rgba(251,191,36,0.3)] transition-all hover:scale-[1.02] group ring-4 ring-brand-gold/10">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <span className="text-brand-gold font-black uppercase tracking-widest text-[10px] mb-2 block">Elite</span>
+                                    <h3 className="text-3xl font-black text-white uppercase tracking-tight">Unlimited</h3>
+                                </div>
+                                <div className="text-right">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-4xl font-black text-brand-gold">$1,190</span>
+                                        <span className="text-slate-500 font-bold text-xs uppercase">/mo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* DAY PASS */}
+                        <div className="bg-slate-800/50 backdrop-blur-md p-6 rounded-2xl border border-white/10 flex justify-between items-center px-10 group hover:bg-slate-800/70 transition-all mt-4">
+                            <div>
+                                <h4 className="text-white font-black uppercase tracking-widest text-sm flex items-center gap-3">Day Pass <span className="text-[8px] text-slate-500 font-bold">(App Required)</span></h4>
+                            </div>
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-2xl font-black text-white">$89</span>
+                                <span className="text-slate-500 font-bold text-[10px] uppercase">/day</span>
+                            </div>
+                        </div>
+
+                        {/* FAMILY DISCOUNTS */}
+                        <div className="mt-8 bg-slate-900/80 backdrop-blur-xl border border-white/10 p-10 rounded-[2.5rem] shadow-2xl">
+                            <h4 className="text-brand-gold font-black uppercase text-center tracking-[0.2em] text-sm mb-8">Family Discounts</h4>
+                            <div className="space-y-4 max-w-sm mx-auto">
+                                {[
+                                    { label: 'Second Child', discount: '10% OFF' },
+                                    { label: 'Third Child', discount: '15% OFF' },
+                                    { label: 'Fourth Child', discount: '20% OFF' }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
+                                        <span className="text-white font-black uppercase tracking-tight text-xs">{item.label}</span>
+                                        <span className="text-emerald-400 font-black text-sm">{item.discount}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="mt-12 text-center">
+                            <Link to="/apply" className="inline-block px-16 py-6 bg-brand-gold text-brand-navy font-black uppercase tracking-[0.3em] text-lg rounded-2xl hover:bg-white hover:text-brand-navy transition-all shadow-[0_10px_40px_rgba(251,191,36,0.4)] active:scale-95">
+                                Join The Lab
                             </Link>
                         </div>
-
-                        {/* Founding Plan */}
-                        <div className="bg-brand-gold/10 backdrop-blur-xl p-12 rounded-[2.5rem] border-2 border-brand-gold flex flex-col justify-between relative shadow-[0_20px_60px_rgba(251,191,36,0.2)] md:scale-105 z-20 h-full">
-                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-gold text-brand-navy text-[8px] font-black uppercase px-6 py-2 rounded-full tracking-widest shadow-xl border border-white/20 whitespace-nowrap">
-                                Limited Availability
-                            </div>
-                            <div>
-                                <h3 className="text-2xl font-black uppercase text-white mb-2">Founding Member</h3>
-                                <p className="text-brand-gold text-[10px] mb-8 font-black uppercase tracking-[0.2em] italic">Limited to First 25 Students</p>
-                                <div className="flex items-baseline gap-1 mb-8">
-                                    <span className="text-6xl font-black text-white">$1,290</span>
-                                    <span className="text-slate-400 font-bold text-sm">/mo</span>
-                                </div>
-                                <ul className="space-y-4 mb-10">
-                                    {['Lifetime 10% Membership Discount', 'Founding Member Custom Jacket', 'Full Academic & Physical Access', 'Quarterly Strategy Sessions'].map((i) => (
-                                        <li key={i} className="flex items-center gap-3 text-slate-300 text-xs font-medium">
-                                            <i className="fa-solid fa-circle-check text-brand-gold text-sm drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"></i> <span className="text-white uppercase tracking-tight font-black">{i}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <Link to="/apply" className="w-full py-5 bg-brand-gold text-brand-navy font-black uppercase tracking-widest text-xs rounded-xl hover:bg-white hover:text-brand-navy transition-all text-center shadow-[0_10px_20px_rgba(251,191,36,0.3)] transform hover:-translate-y-1 active:scale-95">
-                                Select Enrollment
-                            </Link>
-                        </div>
-
-                        {/* Standard Plan */}
-                        <div className="bg-white/5 border border-white/10 backdrop-blur-md p-10 rounded-[2.5rem] flex flex-col justify-between h-full hover:bg-white/10 transition-all opacity-80 hover:opacity-100">
-                            <div>
-                                <h3 className="text-xl font-black uppercase text-white mb-2 tracking-tight">Full Lab Access</h3>
-                                <p className="text-slate-500 text-[10px] mb-8 font-black uppercase tracking-widest">Post-Founding Rate</p>
-                                <div className="flex items-baseline gap-1 mb-8">
-                                    <span className="text-5xl font-black text-white">$1,450</span>
-                                    <span className="text-slate-400 font-bold text-sm">/mo</span>
-                                </div>
-                                <ul className="space-y-4 mb-10">
-                                    {['Mon-Fri (3pm - 6pm)', 'Daily Performance Nutrition', 'Academic Tutoring', 'Physical Discipline Training'].map((i) => (
-                                        <li key={i} className="flex items-center gap-3 text-slate-400 text-xs font-medium">
-                                            <i className="fa-solid fa-check text-slate-500 mt-1"></i> <span className="uppercase tracking-tight font-bold">{i}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <button className="w-full py-4 border-2 border-white/20 text-white font-black uppercase text-[10px] tracking-[0.3em] rounded-xl cursor-not-allowed opacity-40">
-                                Pending Capacity
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Sibling Discounts */}
-                    <div className="mt-20 max-w-2xl mx-auto bg-white/5 border border-white/10 p-8 rounded-3xl text-center">
-                        <span className="text-brand-gold font-black uppercase tracking-widest text-[10px] mb-2 block">Dynasty Membership</span>
-                        <h4 className="text-white font-black uppercase text-xl mb-4 tracking-tighter">Sibling Support Program</h4>
-                        <p className="text-slate-400 text-sm font-medium leading-relaxed">
-                            Excellence is a family standard. Multi-student households qualify for compounding discounts: 10% for the 2nd student, 15% for the 3rd, and 20% for 4+ students.
-                        </p>
                     </div>
                 </div>
             </section>
