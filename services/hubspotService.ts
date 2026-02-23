@@ -7,9 +7,8 @@ const PORTAL_ID = import.meta.env.VITE_HUBSPOT_PORTAL_ID;
 
 export interface LeadData {
     email: string;
-    firstName: string;
-    lastName: string;
-    phone?: string;
+    firstName?: string;
+    lastName?: string;
     studentName: string;
     studentDob: string;
     studentGender: string;
@@ -18,15 +17,19 @@ export interface LeadData {
     studentDeficits: string;
     gpaStatus: string;
     hasSuspension: string;
-    lawInteraction: string;
-    pickupType: 'pickup' | 'alone';
+    pickupType: 'Pickup' | 'Self-Transition';
     pickupTime?: string;
     parentWorkUntil?: string;
     nutritionType: string;
     allergies: string;
     specialWishes: string;
-    preferredLocation: string;
     parentStatement: string;
+    // Parent/Household fields
+    parentFirstName: string;
+    parentLastName: string;
+    parentPhone: string;
+    zipCode: string;
+    company: string;
     lastStepCompleted?: string;
 }
 
@@ -51,9 +54,14 @@ export const hubspotService = {
             submittedAt: Date.now(),
             fields: [
                 { name: 'email', value: data.email },
-                { name: 'firstname', value: data.firstName },
-                { name: 'lastname', value: data.lastName },
-                { name: 'phone', value: data.phone || '' },
+                { name: 'firstname', value: data.firstName || data.parentFirstName },
+                { name: 'lastname', value: data.lastName || data.parentLastName },
+                { name: 'company', value: data.company },
+                { name: 'parent_first_name', value: data.parentFirstName },
+                { name: 'parent_last_name', value: data.parentLastName },
+                { name: 'household_email', value: data.email },
+                { name: 'phone', value: data.parentPhone },
+                { name: 'zip_code', value: data.zipCode },
                 { name: 'student_name', value: data.studentName },
                 { name: 'student_dob', value: data.studentDob },
                 { name: 'student_gender', value: data.studentGender },
@@ -62,14 +70,12 @@ export const hubspotService = {
                 { name: 'student_deficits', value: data.studentDeficits },
                 { name: 'gpa_status', value: data.gpaStatus },
                 { name: 'has_suspension', value: data.hasSuspension },
-                { name: 'law_interaction', value: data.lawInteraction },
                 { name: 'pickup_type', value: data.pickupType },
                 { name: 'pickup_time', value: data.pickupTime || '' },
                 { name: 'parent_work_until', value: data.parentWorkUntil || '' },
                 { name: 'nutrition_type', value: data.nutritionType },
                 { name: 'allergies', value: data.allergies },
                 { name: 'special_wishes', value: data.specialWishes },
-                { name: 'preferred_location', value: data.preferredLocation },
                 { name: 'parent_statement', value: data.parentStatement },
                 { name: 'application_status', value: status },
                 { name: 'last_step_completed', value: data.lastStepCompleted || '1' }

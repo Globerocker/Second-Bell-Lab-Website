@@ -12,6 +12,7 @@ const ApplicationWizard: React.FC = () => {
     parentLastName: '',
     parentEmail: '',
     parentPhone: '',
+    zipCode: '',
     studentFirstName: '',
     studentLastName: '',
     studentDob: '',
@@ -24,19 +25,14 @@ const ApplicationWizard: React.FC = () => {
     studentDeficits: '',
     academicStanding: '',
     hasSuspension: '',
-    hasLawInteraction: '',
-    pickupType: '' as 'pickup' | 'alone' | '',
+    pickupType: '' as 'Pickup' | 'Self-Transition' | '',
     pickupTime: '',
     parentWorkUntil: '',
     nutritionType: 'Standard',
     allergies: '',
     specialWishes: '',
-    location: 'Phoenix HQ (Arcadia)',
     parentStatement: '',
-    agreedCommitment: false, // Must be checked now
-    agreedAttendance: true,
-    agreedNoPhone: true,
-    agreedParentStrategy: true,
+    agreedCommitment: false,
   });
 
   const [isPartialCaptured, setIsPartialCaptured] = useState(false);
@@ -71,10 +67,10 @@ const ApplicationWizard: React.FC = () => {
         await hubspotService.submitLead({
           ...formData,
           email: formData.parentEmail,
-          firstName: formData.parentFirstName,
-          lastName: formData.parentLastName,
-          phone: formData.parentPhone,
           studentName: `${formData.studentFirstName} ${formData.studentLastName}`,
+          pickupType: formData.pickupType || 'Pickup',
+          zipCode: formData.zipCode,
+          company: `${formData.parentLastName} Household`,
           lastStepCompleted: (nextStep - 1).toString()
         } as any, HUB_FORM_ID, 'Partial');
         setIsPartialCaptured(true);
@@ -95,14 +91,6 @@ const ApplicationWizard: React.FC = () => {
     });
   };
 
-  // Auto-next utility for single-selection steps
-  const autoNext = () => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setStep(prev => prev + 1);
-    }, 400);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const HUB_FORM_ID = '51085955';
@@ -110,9 +98,6 @@ const ApplicationWizard: React.FC = () => {
     try {
       await hubspotService.submitLead({
         email: formData.parentEmail,
-        firstName: formData.parentFirstName,
-        lastName: formData.parentLastName,
-        phone: formData.parentPhone,
         studentName: `${formData.studentFirstName} ${formData.studentLastName}`,
         studentDob: formData.studentDob,
         studentGender: formData.studentGender,
@@ -121,15 +106,19 @@ const ApplicationWizard: React.FC = () => {
         studentDeficits: formData.studentDeficits,
         gpaStatus: formData.academicStanding,
         hasSuspension: formData.hasSuspension,
-        lawInteraction: formData.hasLawInteraction,
-        pickupType: formData.pickupType as 'pickup' | 'alone',
+        pickupType: formData.pickupType as 'Pickup' | 'Self-Transition',
         pickupTime: formData.pickupTime,
         parentWorkUntil: formData.parentWorkUntil,
         nutritionType: formData.nutritionType,
         allergies: formData.allergies,
         specialWishes: formData.specialWishes,
-        preferredLocation: formData.location,
-        parentStatement: formData.parentStatement
+        parentStatement: formData.parentStatement,
+        // Household (Company) Mapping
+        parentFirstName: formData.parentFirstName,
+        parentLastName: formData.parentLastName,
+        parentPhone: formData.parentPhone,
+        zipCode: formData.zipCode,
+        company: `${formData.parentLastName} Household`
       }, HUB_FORM_ID, 'Submitted');
 
       // Webhook fallback
@@ -164,7 +153,6 @@ const ApplicationWizard: React.FC = () => {
   return (
     <div className="min-h-screen bg-white py-20 px-4 pt-32 selection:bg-brand-gold selection:text-brand-navy">
       <div className="max-w-3xl mx-auto">
-        {/* Minimal Header */}
         <div className="text-center mb-10 animate-fade-in">
           <Link to="/" className="inline-block mb-8">
             <img src="/favicon.svg" alt="Second Bell Lab" className="h-10 mx-auto" />
@@ -179,7 +167,6 @@ const ApplicationWizard: React.FC = () => {
           {step < 6 && <Progress />}
 
           <form onSubmit={handleSubmit}>
-            {/* Step 1: The Identity (Parent & Student) */}
             {step === 1 && (
               <div className="animate-fade-in space-y-12">
                 <section className="space-y-6">
@@ -188,9 +175,10 @@ const ApplicationWizard: React.FC = () => {
                     <input type="text" placeholder="First Name" value={formData.parentFirstName} onChange={(e) => updateField('parentFirstName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                     <input type="text" placeholder="Last Name" value={formData.parentLastName} onChange={(e) => updateField('parentLastName', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <input type="email" placeholder="Email" value={formData.parentEmail} onChange={(e) => updateField('parentEmail', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                     <input type="tel" placeholder="Phone" value={formData.parentPhone} onChange={(e) => updateField('parentPhone', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
+                    <input type="text" placeholder="Zip Code" value={formData.zipCode} onChange={(e) => updateField('zipCode', e.target.value.replace(/\D/g, '').slice(0, 5))} className="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                   </div>
                 </section>
 
@@ -208,37 +196,30 @@ const ApplicationWizard: React.FC = () => {
                         <input type="text" placeholder="MM" value={formData.dobMonth} onChange={(e) => updateField('dobMonth', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-16 p-4 bg-white border border-slate-200 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none" required />
                         <input type="text" placeholder="YYYY" value={formData.dobYear} onChange={(e) => updateField('dobYear', e.target.value.replace(/\D/g, '').slice(0, 4))} className="flex-grow p-4 bg-white border border-slate-200 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none" required />
                       </div>
-                      {formData.studentDob && new Date().getFullYear() - new Date(formData.studentDob).getFullYear() < 8 && (
-                        <p className="text-red-500 text-[10px] font-bold ml-2">Student must be at least 8 years old.</p>
-                      )}
                     </div>
                     <div className="space-y-4">
-                      <label htmlFor="studentGender" className="text-[10px] font-black uppercase text-slate-400 ml-2">Gender</label>
-                      <select id="studentGender" value={formData.studentGender} onChange={(e) => updateField('studentGender', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" required title="Student Gender">
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                      </select>
+                      <label className="text-[10px] font-black uppercase text-slate-400 ml-2 tracking-widest">Student Gender</label>
+                      <div className="flex gap-3">
+                        {['Male', 'Female'].map(g => (
+                          <button key={g} type="button" onClick={() => updateField('studentGender', g)} className={`flex-1 p-5 rounded-2xl font-black uppercase tracking-widest text-[10px] border-2 transition-all ${formData.studentGender === g ? 'bg-brand-navy border-brand-navy text-white shadow-lg' : 'bg-white border-slate-200 text-slate-400 hover:border-brand-gold hover:text-brand-navy'}`}>{g}</button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </section>
 
                 <div className="flex justify-end pt-8">
-                  <button type="button" onClick={() => handlePartialCapture(2)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
-                    Next Phase <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                  </button>
+                  <button type="button" onClick={() => handlePartialCapture(2)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">Next Phase <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></button>
                 </div>
               </div>
             )}
 
-            {/* Step 2: Performance & School (Click-Friendly) */}
             {step === 2 && (
               <div className="animate-fade-in space-y-12">
                 <div className="space-y-4">
                   <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Current School</div>
                   <input type="text" placeholder="Name of school..." value={formData.studentSchool} onChange={(e) => updateField('studentSchool', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required />
                 </div>
-
                 <div className="space-y-4">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Academic Status</label>
                   <div className="grid grid-cols-1 gap-3">
@@ -247,171 +228,141 @@ const ApplicationWizard: React.FC = () => {
                       { val: 'Average', label: "Stable (B/C Range)" },
                       { val: 'Struggling', label: "At Risk (D/F Range)" }
                     ].map(opt => (
-                      <button key={opt.val} type="button" onClick={() => { updateField('academicStanding', opt.val); autoNext(); }} className={`p-6 text-left border-2 rounded-2xl transition-all flex items-center justify-between ${formData.academicStanding === opt.val ? 'border-brand-navy bg-brand-navy text-white shadow-xl' : 'border-white bg-white hover:border-slate-200'}`}>
+                      <button key={opt.val} type="button" onClick={() => updateField('academicStanding', opt.val)} className={`p-6 text-left border-2 rounded-2xl transition-all flex items-center justify-between ${formData.academicStanding === opt.val ? 'border-brand-navy bg-brand-navy text-white shadow-xl' : 'border-white bg-white hover:border-slate-200'}`}>
                         <span className="font-black uppercase tracking-tight text-sm">{opt.label}</span>
                         {formData.academicStanding === opt.val && <i className="fa-solid fa-circle-check"></i>}
                       </button>
                     ))}
                   </div>
                 </div>
-
+                <div className="space-y-8">
+                  <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Behavioral Record</div>
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Has your student ever been suspended?</label>
+                    <div className="flex gap-3">
+                      {['Yes', 'No'].map(opt => (
+                        <button key={opt} type="button" onClick={() => updateField('hasSuspension', opt)} className={`flex-1 p-5 rounded-2xl font-black uppercase tracking-widest text-[10px] border-2 transition-all ${formData.hasSuspension === opt ? 'bg-brand-navy border-brand-navy text-white shadow-lg' : 'bg-white border-slate-200 text-slate-400 hover:border-brand-gold hover:text-brand-navy'}`}>{opt}</button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(1)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  {formData.academicStanding && (
-                    <button type="button" onClick={() => handlePartialCapture(3)} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest text-[10px] rounded-xl">Next</button>
-                  )}
+                  <button type="button" onClick={() => handlePartialCapture(3)} className="px-10 py-4 bg-brand-navy text-white font-black uppercase tracking-widest text-[10px] rounded-xl" disabled={!formData.academicStanding}>Next</button>
                 </div>
               </div>
             )}
 
-            {/* Step 3: Child Profile (Grouped) */}
             {step === 3 && (
               <div className="animate-fade-in space-y-12">
                 <div className="space-y-6">
                   <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Passions & Interests</div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {['Sports', 'Tech', 'Arts', 'Coding', 'Leader', 'Science', 'Music', 'Media'].map((interest) => (
-                      <div key={interest} onClick={() => toggleInterest(interest)} className={`p-4 border-2 rounded-2xl cursor-pointer transition-all text-center group ${formData.studentInterests.includes(interest) ? 'border-brand-gold bg-brand-gold/10' : 'border-white bg-white hover:border-slate-200'}`}>
+                      <button key={interest} type="button" onClick={() => toggleInterest(interest)} className={`p-4 border-2 rounded-2xl transition-all text-center group ${formData.studentInterests.includes(interest) ? 'border-brand-gold bg-brand-gold/10' : 'border-white bg-white hover:border-slate-200'}`}>
                         <span className={`text-[10px] font-black uppercase tracking-widest ${formData.studentInterests.includes(interest) ? 'text-brand-navy' : 'text-slate-400 group-hover:text-brand-navy'}`}>{interest}</span>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
-
                 <div className="space-y-4">
                   <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Behavioral Gaps / Struggles</div>
-                  <textarea placeholder="Tell us where your child needs support (focus, social, etc)..." value={formData.studentDeficits} onChange={(e) => updateField('studentDeficits', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-3xl h-32 focus:ring-2 focus:ring-brand-gold outline-none transition-all placeholder:text-slate-300 font-medium"></textarea>
+                  <textarea placeholder="Tell us where your child needs support..." value={formData.studentDeficits} onChange={(e) => updateField('studentDeficits', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-3xl h-32 focus:ring-2 focus:ring-brand-gold outline-none transition-all placeholder:text-slate-300 font-medium"></textarea>
                 </div>
-
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(2)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={() => handlePartialCapture(4)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">
-                    Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                  </button>
+                  <button type="button" onClick={() => handlePartialCapture(4)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group">Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></button>
                 </div>
               </div>
             )}
 
-            {/* Step 4: Logistics & Nutrition */}
             {step === 4 && (
               <div className="animate-fade-in space-y-12">
                 <div className="space-y-6">
                   <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Daily Routine</div>
                   <div className="grid grid-cols-2 gap-4">
-                    <button type="button" onClick={() => updateField('pickupType', 'pickup')} className={`p-6 border-2 rounded-2xl transition-all text-left ${formData.pickupType === 'pickup' ? 'border-brand-navy bg-brand-navy text-white shadow-lg' : 'border-white bg-white hover:border-slate-200'}`}>
+                    <button type="button" onClick={() => updateField('pickupType', 'Pickup')} className={`p-6 border-2 rounded-2xl transition-all text-left ${formData.pickupType === 'Pickup' ? 'border-brand-navy bg-brand-navy text-white shadow-lg' : 'border-white bg-white hover:border-slate-200'}`}>
                       <h4 className="font-black uppercase tracking-tight text-xs">Pickup</h4>
                       <p className="text-[10px] opacity-60">I will collect my child</p>
                     </button>
-                    <button type="button" onClick={() => updateField('pickupType', 'alone')} className={`p-6 border-2 rounded-2xl transition-all text-left ${formData.pickupType === 'alone' ? 'border-brand-navy bg-brand-navy text-white shadow-lg' : 'border-white bg-white hover:border-slate-200'}`}>
+                    <button type="button" onClick={() => updateField('pickupType', 'Self-Transition')} className={`p-6 border-2 rounded-2xl transition-all text-left ${formData.pickupType === 'Self-Transition' ? 'border-brand-navy bg-brand-navy text-white shadow-lg' : 'border-white bg-white hover:border-slate-200'}`}>
                       <h4 className="font-black uppercase tracking-tight text-xs">Self-Transition</h4>
                       <p className="text-[10px] opacity-60">Goes home alone</p>
                     </button>
                   </div>
                   {formData.pickupType && (
                     <div className="animate-fade-in">
-                      <label htmlFor="pickupTime" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">{formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'}</label>
-                      <select id="pickupTime" value={formData.pickupType === 'pickup' ? formData.pickupTime : formData.parentWorkUntil} onChange={(e) => updateField(formData.pickupType === 'pickup' ? 'pickupTime' : 'parentWorkUntil', e.target.value)} className="w-full mt-2 p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none appearance-none" required title={formData.pickupType === 'pickup' ? 'Pickup Time' : 'Parent Works Until'}>
+                      <label className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">{formData.pickupType === 'Pickup' ? 'Pickup Time' : 'Parent Works Until'}</label>
+                      <select value={formData.pickupType === 'Pickup' ? formData.pickupTime : formData.parentWorkUntil} onChange={(e) => updateField(formData.pickupType === 'Pickup' ? 'pickupTime' : 'parentWorkUntil', e.target.value)} className="w-full mt-2 p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" required>
                         <option value="">Select Time</option>
                         {timeOptions.map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
                     </div>
                   )}
                 </div>
-
                 <div className="space-y-6">
-                  <div className="space-y-2">
-                    <label htmlFor="nutritionType" className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Nutrition Preference</label>
-                    <select id="nutritionType" value={formData.nutritionType} onChange={(e) => updateField('nutritionType', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium appearance-none" title="Nutrition Type">
-                      <option value="Standard">Standard</option>
-                      <option value="Vegan">Vegan</option>
-                      <option value="Vegetarian">Vegetarian</option>
-                      <option value="Kosher">Kosher</option>
-                      <option value="Halal">Halal</option>
-                      <option value="Gluten-Free">Gluten-Free</option>
-                      <option value="Keto">Keto</option>
-                    </select>
+                  <label className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Nutrition Preference</label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {['Standard', 'Vegan', 'Vegetarian', 'Keto', 'Gluten-Free', 'Halal'].map(diet => (
+                      <button key={diet} type="button" onClick={() => updateField('nutritionType', diet)} className={`p-4 rounded-2xl font-black uppercase tracking-widest text-[10px] border-2 transition-all ${formData.nutritionType === diet ? 'bg-brand-navy border-brand-navy text-white shadow-lg' : 'bg-white border-slate-200 text-slate-400 hover:border-brand-gold hover:text-brand-navy'}`}>{diet}</button>
+                    ))}
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 ml-2 uppercase tracking-widest">Allergies / Restrictions</label>
-                    <input type="text" placeholder="e.g. Peanuts, Shellfish, Lactose..." value={formData.allergies} onChange={(e) => updateField('allergies', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" />
+                    <input type="text" placeholder="e.g. Peanuts..." value={formData.allergies} onChange={(e) => updateField('allergies', e.target.value)} className="w-full p-5 bg-white border border-slate-200 rounded-2xl outline-none font-medium" />
                   </div>
                 </div>
-
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(3)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  <button type="button" onClick={() => { if (formData.pickupType) handlePartialCapture(5); }} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group" disabled={!formData.pickupType}>
-                    Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                  </button>
+                  <button type="button" onClick={() => handlePartialCapture(5)} className="px-12 py-6 bg-brand-navy text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-brand-gold hover:text-brand-navy transition-all shadow-2xl active:scale-95 group" disabled={!formData.pickupType}>Continue <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></button>
                 </div>
               </div>
             )}
 
-            {/* Step 5: The Commitment & Final Review */}
             {step === 5 && (
               <div className="animate-fade-in space-y-12">
                 <div className="space-y-6">
                   <div className="border-l-4 border-brand-gold pl-4 font-black text-brand-navy uppercase tracking-widest text-sm">Why Second Bell Lab?</div>
-                  <textarea placeholder="Tell us about your goals for your child..." value={formData.parentStatement} onChange={(e) => updateField('parentStatement', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-3xl h-40 focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required></textarea>
+                  <textarea placeholder="Tell us about your goals..." value={formData.parentStatement} onChange={(e) => updateField('parentStatement', e.target.value)} className="w-full p-6 bg-white border border-slate-200 rounded-3xl h-40 focus:ring-2 focus:ring-brand-gold outline-none transition-all font-medium" required></textarea>
                 </div>
-
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 space-y-4">
-                  <h4 className="text-[10px] font-black text-brand-navy uppercase tracking-widest mb-4">The Partnership Terms</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed font-bold">
-                    1. Mandatory daily attendance (Mon-Fri).<br />
-                    2. 100% "No Device" policy during Lab hours.<br />
-                    3. Commitment to quarterly strategy sessions.
-                  </p>
+                  <h4 className="text-[10px] font-black text-brand-navy uppercase tracking-widest mb-4">Partnership Terms</h4>
+                  <p className="text-xs text-slate-500 font-bold leading-relaxed">1. Mandatory daily attendance.<br />2. No Device policy.<br />3. Quarterly strategy sessions.</p>
                   <label className="pt-4 flex items-center gap-3 text-brand-navy cursor-pointer group">
-                    <div className={`w-6 h-6 border-2 rounded-lg flex items-center justify-center transition-all ${formData.agreedCommitment ? 'bg-brand-navy border-brand-navy text-white' : 'bg-white border-slate-200 group-hover:border-brand-gold'}`}>
-                      <input
-                        type="checkbox"
-                        className="hidden"
-                        checked={formData.agreedCommitment}
-                        onChange={(e) => updateField('agreedCommitment', e.target.checked)}
-                      />
+                    <div className={`w-6 h-6 border-2 rounded-lg flex items-center justify-center transition-all ${formData.agreedCommitment ? 'bg-brand-navy border-brand-navy text-white' : 'bg-white border-slate-200'}`}>
+                      <input type="checkbox" className="hidden" checked={formData.agreedCommitment} onChange={(e) => updateField('agreedCommitment', e.target.checked)} />
                       {formData.agreedCommitment && <i className="fa-solid fa-check text-xs"></i>}
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-widest">I commit to these standards.</span>
                   </label>
                 </div>
-
                 <div className="flex justify-between pt-8">
                   <button type="button" onClick={() => setStep(4)} className="text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-brand-navy transition-colors">Back</button>
-                  <button
-                    type="submit"
-                    className={`px-12 py-6 font-black uppercase tracking-[0.2em] text-xs rounded-2xl transition-all shadow-2xl active:scale-95 ${formData.agreedCommitment ? 'bg-brand-gold text-brand-navy hover:bg-brand-navy hover:text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
-                    disabled={!formData.agreedCommitment}
-                  >
-                    Submit Application
-                  </button>
+                  <button type="submit" className={`px-12 py-6 font-black uppercase tracking-[0.2em] text-xs rounded-2xl transition-all shadow-2xl ${formData.agreedCommitment ? 'bg-brand-gold text-brand-navy hover:bg-brand-navy hover:text-white' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`} disabled={!formData.agreedCommitment}>Submit Application</button>
                 </div>
               </div>
             )}
 
-            {/* Success */}
             {step === 6 && (
               <div className="animate-fade-in text-center py-10 space-y-8">
                 <div className="w-24 h-24 bg-brand-gold rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
                   <i className="fa-solid fa-check text-4xl text-brand-navy"></i>
                 </div>
                 <h2 className="text-4xl font-black text-brand-navy uppercase tracking-tighter">Application Received</h2>
-                <p className="text-slate-500 font-bold leading-relaxed max-w-md mx-auto">Thank you, {formData.parentFirstName}. Our mentors will review your application for {formData.studentFirstName} and reach out within 48 hours.</p>
+                <p className="text-slate-500 font-bold leading-relaxed max-w-md mx-auto">Thank you, {formData.parentFirstName}. Our mentors will reach out within 48 hours regarding {formData.studentFirstName}.</p>
                 <div className="pt-8">
-                  <Link to="/" className="inline-flex items-center gap-3 text-brand-navy font-black uppercase tracking-[0.2em] text-[10px] border-b-2 border-brand-gold pb-2 hover:text-brand-gold transition-all">
-                    Return Home <i className="fa-solid fa-arrow-right"></i>
-                  </Link>
+                  <Link to="/" className="inline-flex items-center gap-3 text-brand-navy font-black uppercase tracking-widest text-[10px] border-b-2 border-brand-gold pb-2 hover:text-brand-gold transition-all">Return Home <i className="fa-solid fa-arrow-right"></i></Link>
                 </div>
               </div>
             )}
           </form>
         </div>
 
-        {/* Trust Footnote */}
         <div className="mt-12 text-center text-[10px] space-y-4 animate-fade-in">
-          <div className="flex items-center justify-center gap-8 opacity-40 grayscale group-hover:grayscale-0 transition-all">
-            <span className="font-black uppercase tracking-widest">Encrypted Data</span>
-            <span className="font-black uppercase tracking-widest">Privacy Protected</span>
-            <span className="font-black uppercase tracking-widest">Member Support</span>
+          <div className="flex items-center justify-center gap-8 opacity-40 uppercase font-black tracking-widest">
+            <span>Encrypted Data</span>
+            <span>Privacy Protected</span>
+            <span>Member Support</span>
           </div>
           <p className="text-slate-400 font-bold uppercase tracking-widest">© 2025 Second Bell Lab • High Performance Excellence</p>
         </div>
