@@ -50,10 +50,16 @@ export const hubspotService = {
             .find(row => row.startsWith('hubspotutk='))
             ?.split('=')[1];
 
+        // Create a unique "virtual" email for the Contact record to prevent siblings from overwriting each other.
+        // Example: parents@gmail.com becomes parents+student.name@gmail.com
+        const contactEmail = data.email.includes('@')
+            ? data.email.replace('@', `+${data.studentName.replace(/\s+/g, '.').toLowerCase()}@`)
+            : `${data.studentName.replace(/\s+/g, '.').toLowerCase()}@house.hold`;
+
         const payload = {
             submittedAt: Date.now(),
             fields: [
-                { name: 'email', value: data.email },
+                { name: 'email', value: contactEmail },
                 { name: 'firstname', value: data.firstName || data.parentFirstName },
                 { name: 'lastname', value: data.lastName || data.parentLastName },
                 { name: 'company', value: data.company },
