@@ -72,7 +72,7 @@ export const hubspotService = {
                 { name: 'student_dob', value: data.studentDob },
                 { name: 'student_gender', value: data.studentGender },
                 { name: 'student_school', value: data.studentSchool },
-                { name: 'student_interests', value: data.studentInterests.join(', ') },
+                { name: 'student_interests', value: data.studentInterests.join(';') },
                 { name: 'student_deficits', value: data.studentDeficits },
                 { name: 'gpa_status', value: data.gpaStatus },
                 { name: 'has_suspension', value: data.hasSuspension },
@@ -105,9 +105,15 @@ export const hubspotService = {
                 }
             );
 
-            return response.status === 200;
+            if (response.status !== 200 && response.status !== 204) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error('HubSpot Submission Error Status:', response.status, errorData);
+                return false;
+            }
+
+            return true;
         } catch (error) {
-            console.error('HubSpot Form Submission Error:', error);
+            console.error('HubSpot Form Submission Exception:', error);
             return false;
         }
     },

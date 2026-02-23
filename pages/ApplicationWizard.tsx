@@ -61,8 +61,12 @@ const ApplicationWizard: React.FC = () => {
 
   const getFormattedDob = (student: any) => {
     if (student.dobDay && student.dobMonth && student.dobYear) {
-      const yearStr = student.dobYear.length === 2 ? `20${student.dobYear}` : student.dobYear;
-      return `${yearStr}-${student.dobMonth.padStart(2, '0')}-${student.dobDay.padStart(2, '0')}`;
+      const year = parseInt(student.dobYear.length === 2 ? `20${student.dobYear}` : student.dobYear);
+      const month = parseInt(student.dobMonth) - 1;
+      const day = parseInt(student.dobDay);
+      // HubSpot expects a UTC midnight timestamp for Date properties
+      const date = new Date(Date.UTC(year, month, day));
+      return date.getTime().toString();
     }
     return '';
   };
@@ -270,9 +274,9 @@ const ApplicationWizard: React.FC = () => {
                       <div className="space-y-4">
                         <label className="text-[10px] font-black uppercase text-brand-gold ml-2 tracking-widest opacity-80">Birth Date</label>
                         <div className="flex gap-2">
-                          <input type="text" placeholder="DD" value={formData.student.dobDay} onChange={(e) => updateStudentField('dobDay', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-16 p-4 bg-white/5 border border-white/10 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none text-white placeholder:text-slate-600" required />
-                          <input type="text" placeholder="MM" value={formData.student.dobMonth} onChange={(e) => updateStudentField('dobMonth', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-16 p-4 bg-white/5 border border-white/10 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none text-white placeholder:text-slate-600" required />
-                          <input type="text" placeholder="YYYY" value={formData.student.dobYear} onChange={(e) => updateStudentField('dobYear', e.target.value.replace(/\D/g, '').slice(0, 4))} className="flex-grow p-4 bg-white/5 border border-white/10 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none text-white placeholder:text-slate-600" required />
+                          <input type="text" placeholder="DD" value={formData.student.dobDay} onChange={(e) => updateStudentField('dobDay', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-14 p-4 bg-white/5 border border-white/10 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none text-white placeholder:text-slate-600" required />
+                          <input type="text" placeholder="MM" value={formData.student.dobMonth} onChange={(e) => updateStudentField('dobMonth', e.target.value.replace(/\D/g, '').slice(0, 2))} className="w-14 p-4 bg-white/5 border border-white/10 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none text-white placeholder:text-slate-600" required />
+                          <input type="text" placeholder="YYYY" value={formData.student.dobYear} onChange={(e) => updateStudentField('dobYear', e.target.value.replace(/\D/g, '').slice(0, 4))} className="w-24 p-4 bg-white/5 border border-white/10 rounded-xl text-center font-bold focus:ring-2 focus:ring-brand-gold outline-none text-white placeholder:text-slate-600" required />
                         </div>
                       </div>
                       <div className="space-y-4">
