@@ -67,7 +67,7 @@ export const hubspotService = {
                 { name: 'parent_last_name', value: data.parentLastName },
                 { name: 'household_email', value: data.email },
                 { name: 'phone', value: data.parentPhone },
-                { name: 'zip_code', value: data.zipCode },
+                { name: 'zip', value: data.zipCode },
                 { name: 'student_name', value: data.studentName },
                 { name: 'student_dob', value: data.studentDob },
                 { name: 'student_gender', value: data.studentGender },
