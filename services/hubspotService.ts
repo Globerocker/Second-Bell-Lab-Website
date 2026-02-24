@@ -60,10 +60,10 @@ export const hubspotService = {
             submittedAt: Date.now(),
             fields: [
                 { name: 'email', value: contactEmail },
-                { name: 'firstname', value: data.firstName || data.parentFirstName },
-                { name: 'lastname', value: data.lastName || data.parentLastName },
-                { name: 'company', value: data.company },
+                { name: 'firstname', value: data.firstName },
+                { name: 'lastname', value: data.lastName },
                 // Company-level properties (objectTypeId 0-2)
+                { name: 'name', value: `${data.parentFirstName} ${data.parentLastName}`, objectTypeId: '0-2' },
                 { name: 'parent_first_name', value: data.parentFirstName, objectTypeId: '0-2' },
                 { name: 'parent_last_name', value: data.parentLastName, objectTypeId: '0-2' },
                 { name: 'household_email', value: data.email, objectTypeId: '0-2' },
