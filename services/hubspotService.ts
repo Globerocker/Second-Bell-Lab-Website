@@ -63,11 +63,13 @@ export const hubspotService = {
                 { name: 'firstname', value: data.firstName || data.parentFirstName },
                 { name: 'lastname', value: data.lastName || data.parentLastName },
                 { name: 'company', value: data.company },
-                { name: 'parent_first_name', value: data.parentFirstName },
-                { name: 'parent_last_name', value: data.parentLastName },
-                { name: 'household_email', value: data.email },
-                { name: 'phone', value: data.parentPhone },
-                { name: 'zip', value: data.zipCode },
+                // Company-level properties (objectTypeId 0-2)
+                { name: 'parent_first_name', value: data.parentFirstName, objectTypeId: '0-2' },
+                { name: 'parent_last_name', value: data.parentLastName, objectTypeId: '0-2' },
+                { name: 'household_email', value: data.email, objectTypeId: '0-2' },
+                { name: 'phone', value: data.parentPhone, objectTypeId: '0-2' },
+                { name: 'zip', value: data.zipCode, objectTypeId: '0-2' },
+                // Student-level properties (Contact - 0-1)
                 { name: 'student_name', value: data.studentName },
                 { name: 'student_dob', value: data.studentDob },
                 { name: 'student_gender', value: data.studentGender },
